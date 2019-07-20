@@ -43,7 +43,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
         return new SurfaceBOPWetland(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
     }
 
-    public class TerrainBOPWetland extends TerrainBase {
+    public static class TerrainBOPWetland extends TerrainBase {
 
         public TerrainBOPWetland() {
 
@@ -56,7 +56,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPWetland extends SurfaceBase {
+    public static class SurfaceBOPWetland extends SurfaceBase {
 
         public SurfaceBOPWetland(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -68,7 +68,7 @@ public class RealisticBiomeBOPWetland extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

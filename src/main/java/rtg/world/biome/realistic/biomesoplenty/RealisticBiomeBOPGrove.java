@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
@@ -16,7 +14,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
@@ -25,16 +22,9 @@ import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
+import java.util.Random;
+
+import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
 
 
@@ -74,7 +64,6 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.getDistribution().setNoiseFactor(60f);
         decoFallenTree1.getDistribution().setNoiseAddend(-15f);
         decoFallenTree1.setLogCondition(X_DIVIDED_BY_STRENGTH);
-        decoFallenTree1.setLogConditionNoise(8f);
         decoFallenTree1.setLogConditionChance(1);
         decoFallenTree1.setMaxY(100);
         decoFallenTree1.setLogBlock(BlockUtil.getStateLog(EnumType.BIRCH));
@@ -87,7 +76,6 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoFallenTree2.getDistribution().setNoiseFactor(60f);
         decoFallenTree2.getDistribution().setNoiseAddend(-15f);
         decoFallenTree2.setLogCondition(X_DIVIDED_BY_STRENGTH);
-        decoFallenTree2.setLogConditionNoise(8f);
         decoFallenTree2.setLogConditionChance(1);
         decoFallenTree2.setMaxY(100);
         decoFallenTree2.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
@@ -128,11 +116,9 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(12f);
         this.addDeco(decoGrass);
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
-    public class TerrainBOPGrove extends TerrainBase {
+    public static class TerrainBOPGrove extends TerrainBase {
 
         private float baseHeight = 64f;
         private float peakyHillWavelength = 40f;
@@ -153,7 +139,7 @@ public class RealisticBiomeBOPGrove extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPGrove extends SurfaceBase {
+    public static class SurfaceBOPGrove extends SurfaceBase {
 
         public byte mixByte = (byte) 0;
         private float min;

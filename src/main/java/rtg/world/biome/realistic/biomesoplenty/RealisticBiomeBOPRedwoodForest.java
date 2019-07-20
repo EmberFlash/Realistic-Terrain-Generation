@@ -14,7 +14,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
@@ -54,8 +53,6 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        this.addDeco(new DecoBaseBiomeDecorations());
-
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.setMaxY(80);
@@ -76,7 +73,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPRedwoodForest extends TerrainBase {
+    public static class TerrainBOPRedwoodForest extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -98,7 +95,7 @@ public class RealisticBiomeBOPRedwoodForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPRedwoodForest extends SurfaceBase {
+    public static class SurfaceBOPRedwoodForest extends SurfaceBase {
 
         private float min;
 

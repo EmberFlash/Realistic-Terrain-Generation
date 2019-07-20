@@ -13,7 +13,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -62,11 +61,9 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(5);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
-    public class TerrainBOPMysticGrove extends TerrainBase {
+    public static class TerrainBOPMysticGrove extends TerrainBase {
 
         public TerrainBOPMysticGrove() {
 
@@ -79,7 +76,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMysticGrove extends SurfaceBase {
+    public static class SurfaceBOPMysticGrove extends SurfaceBase {
 
         public SurfaceBOPMysticGrove(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -91,7 +88,7 @@ public class RealisticBiomeBOPMysticGrove extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

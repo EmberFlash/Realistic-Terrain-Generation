@@ -44,7 +44,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
         return new SurfaceBOPMoor(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState());
     }
 
-    public class TerrainBOPMoor extends TerrainBase {
+    public static class TerrainBOPMoor extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -68,7 +68,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMoor extends SurfaceBase {
+    public static class SurfaceBOPMoor extends SurfaceBase {
 
         public SurfaceBOPMoor(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -80,7 +80,7 @@ public class RealisticBiomeBOPMoor extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

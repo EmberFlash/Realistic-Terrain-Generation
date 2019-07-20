@@ -45,12 +45,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
         return new SurfaceBOPHighland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
-    public class TerrainBOPHighland extends TerrainBase {
+    public static class TerrainBOPHighland extends TerrainBase {
 
         private float baseHeight = 90f;
         private BumpyHillsEffect onTop = new BumpyHillsEffect();
@@ -77,7 +72,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPHighland extends SurfaceBase {
+    public static class SurfaceBOPHighland extends SurfaceBase {
 
         public SurfaceBOPHighland(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -89,7 +84,7 @@ public class RealisticBiomeBOPHighland extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

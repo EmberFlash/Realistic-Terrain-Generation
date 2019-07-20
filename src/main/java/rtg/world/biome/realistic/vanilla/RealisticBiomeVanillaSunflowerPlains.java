@@ -11,7 +11,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
@@ -46,12 +45,9 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
-    public class TerrainVanillaSunflowerPlains extends TerrainBase {
+    public static class TerrainVanillaSunflowerPlains extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -66,7 +62,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaSunflowerPlains extends SurfaceBase {
+    public static class SurfaceVanillaSunflowerPlains extends SurfaceBase {
 
         public SurfaceVanillaSunflowerPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -78,7 +74,7 @@ public class RealisticBiomeVanillaSunflowerPlains extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

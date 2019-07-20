@@ -42,7 +42,7 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBOPBase {
         return new SurfaceBOPOriginIsland(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPOriginIsland extends TerrainBase {
+    public static class TerrainBOPOriginIsland extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -62,7 +62,7 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOriginIsland extends SurfaceBase {
+    public static class SurfaceBOPOriginIsland extends SurfaceBase {
 
         public SurfaceBOPOriginIsland(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -74,7 +74,7 @@ public class RealisticBiomeBOPOriginIsland extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

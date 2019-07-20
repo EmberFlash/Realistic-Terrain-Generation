@@ -40,12 +40,7 @@ public class RealisticBiomeRWSilverBirchHills extends RealisticBiomeRWBase {
         return new SurfaceRWSilverBirchHills(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
-    public class TerrainRWSilverBirchHills extends TerrainBase {
+    public static class TerrainRWSilverBirchHills extends TerrainBase {
 
         private float baseHeight = 90f;
         private BumpyHillsEffect onTop = new BumpyHillsEffect();
@@ -72,7 +67,7 @@ public class RealisticBiomeRWSilverBirchHills extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWSilverBirchHills extends SurfaceBase {
+    public static class SurfaceRWSilverBirchHills extends SurfaceBase {
 
         public SurfaceRWSilverBirchHills(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -84,7 +79,7 @@ public class RealisticBiomeRWSilverBirchHills extends RealisticBiomeRWBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

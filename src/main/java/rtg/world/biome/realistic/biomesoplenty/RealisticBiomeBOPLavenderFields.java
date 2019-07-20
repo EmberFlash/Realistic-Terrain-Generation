@@ -13,7 +13,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
@@ -59,11 +58,9 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(6f);
         this.addDeco(decoGrass);
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
-    public class TerrainBOPLavenderFields extends TerrainBase {
+    public static class TerrainBOPLavenderFields extends TerrainBase {
 
         public TerrainBOPLavenderFields() {
 
@@ -76,7 +73,7 @@ public class RealisticBiomeBOPLavenderFields extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPLavenderFields extends SurfaceBase {
+    public static class SurfaceBOPLavenderFields extends SurfaceBase {
 
         private float min;
 

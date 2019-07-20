@@ -61,11 +61,11 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
-    public class TerrainVanillaDesertM extends TerrainBase {
+    public static class TerrainVanillaDesertM extends TerrainBase {
 
         private float start;
         private float height;
@@ -86,7 +86,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaDesertM extends SurfaceBase {
+    public static class SurfaceVanillaDesertM extends SurfaceBase {
 
         private float min;
 

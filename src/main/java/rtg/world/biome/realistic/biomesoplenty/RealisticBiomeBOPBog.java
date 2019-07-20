@@ -44,7 +44,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
         return new SurfaceBOPBog(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPBog extends TerrainBase {
+    public static class TerrainBOPBog extends TerrainBase {
 
         private final float bottom = 62f;
         private final HeightVariation bottomVariation;
@@ -82,7 +82,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPBog extends SurfaceBase {
+    public static class SurfaceBOPBog extends SurfaceBase {
 
         public SurfaceBOPBog(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -94,7 +94,7 @@ public class RealisticBiomeBOPBog extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

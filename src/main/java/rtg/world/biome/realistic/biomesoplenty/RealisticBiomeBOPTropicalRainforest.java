@@ -44,7 +44,7 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
         return new SurfaceBOPTropicalRainforest(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPTropicalRainforest extends TerrainBase {
+    public static class TerrainBOPTropicalRainforest extends TerrainBase {
 
         private float start;
         private float height;
@@ -65,7 +65,7 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPTropicalRainforest extends SurfaceBase {
+    public static class SurfaceBOPTropicalRainforest extends SurfaceBase {
 
         public SurfaceBOPTropicalRainforest(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -77,7 +77,7 @@ public class RealisticBiomeBOPTropicalRainforest extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

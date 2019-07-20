@@ -53,11 +53,11 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
-    public class TerrainVanillaDeepOcean extends TerrainBase {
+    public static class TerrainVanillaDeepOcean extends TerrainBase {
 
         public TerrainVanillaDeepOcean() {
 
@@ -70,7 +70,7 @@ public class RealisticBiomeVanillaDeepOcean extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaDeepOcean extends SurfaceBase {
+    public static class SurfaceVanillaDeepOcean extends SurfaceBase {
 
         private IBlockState mixBlock;
         private float width;

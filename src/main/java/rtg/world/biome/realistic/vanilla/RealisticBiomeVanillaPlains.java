@@ -142,12 +142,11 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, oakTrees, birchTrees));
 
-        // Vanilla trees look awful in this biome, so let's make sure they don't generate.
-        //DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        //this.addDeco(decoBaseBiomeDecorations);
+        // Vanilla trees look awful in this biome, so let's make sure they don't generate by modifying the base biome decorator
+        baseBiome().decorator.treesPerChunk = -999;
     }
 
-    public class TerrainVanillaPlains extends TerrainBase {
+    public static class TerrainVanillaPlains extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -162,7 +161,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaPlains extends SurfaceBase {
+    public static class SurfaceVanillaPlains extends SurfaceBase {
 
         public SurfaceVanillaPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -174,7 +173,7 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

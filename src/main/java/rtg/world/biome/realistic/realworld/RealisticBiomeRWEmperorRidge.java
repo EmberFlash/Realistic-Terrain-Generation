@@ -132,7 +132,7 @@ public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
         }
     }
 
-    public class TerrainRWEmperorRidge extends TerrainBase {
+    public static class TerrainRWEmperorRidge extends TerrainBase {
 
         private float start;
         private float height;
@@ -152,7 +152,7 @@ public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWEmperorRidge extends SurfaceBase {
+    public static class SurfaceRWEmperorRidge extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;
@@ -181,7 +181,7 @@ public class RealisticBiomeRWEmperorRidge extends RealisticBiomeRWBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

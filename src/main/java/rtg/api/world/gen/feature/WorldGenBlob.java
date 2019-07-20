@@ -1,9 +1,5 @@
 package rtg.api.world.gen.feature;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -18,7 +14,13 @@ import rtg.api.event.CustomizeBlockEvent;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Random;
 
+
+// TODO: [1.12] This class is required because net.minecraft.world.gen.feature.WorldGenBlockBlob has hardcoded checks for placement,
+//              but this class should extend that class and override its #generate
 public class WorldGenBlob extends WorldGenerator {
 
     private final IBlockState blobBlock;
@@ -117,9 +119,15 @@ public class WorldGenBlob extends WorldGenerator {
     private void placeBoulderBlock(World world, BlockPos targetPos, IBlockState boulderBlock) {
 
         MutableBlockPos mpos = new MutableBlockPos(targetPos);
-        if (world.getBlockState(targetPos).getBlock().isReplaceable(world, targetPos)) {
+        Block targetBlock = world.getBlockState(targetPos).getBlock();
 
+        if (targetBlock.isReplaceable(world, targetPos)) {
+
+            // TODO: [1.12] This should probably match vanilla which uses flag = 4, not 2.
             world.setBlockState(targetPos, boulderBlock, 2);
+
+            //Logger.info("Boulder block ({}) placed at {} {} {}", boulderBlock.getBlock().getLocalizedName(), targetPos.getX(), targetPos.getY(), targetPos.getZ());
+
             // Double-plant check.
             if (world.getBlockState(mpos.move(EnumFacing.UP)).getBlock() == Blocks.DOUBLE_PLANT) {
                 world.setBlockState(mpos, Blocks.AIR.getDefaultState(), 2);

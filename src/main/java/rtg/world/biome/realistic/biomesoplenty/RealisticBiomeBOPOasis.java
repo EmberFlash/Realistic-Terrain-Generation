@@ -14,7 +14,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -47,8 +46,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPOasis(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPOasis(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             Blocks.SAND.getDefaultState(), //IBlockState mixTop,
             Blocks.SANDSTONE.getDefaultState(), //IBlockState mixFill,
@@ -61,8 +59,6 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
 
     @Override
     public void initDecos() {
-
-        this.addDeco(new DecoBaseBiomeDecorations());
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
@@ -77,7 +73,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPOasis extends TerrainBase {
+    public static class TerrainBOPOasis extends TerrainBase {
 
         public TerrainBOPOasis() {
 
@@ -90,7 +86,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOasis extends SurfaceBase {
+    public static class SurfaceBOPOasis extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -120,7 +116,7 @@ public class RealisticBiomeBOPOasis extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

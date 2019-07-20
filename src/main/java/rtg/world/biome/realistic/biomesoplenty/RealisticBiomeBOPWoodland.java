@@ -14,7 +14,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
 import rtg.api.world.deco.DecoGrass;
@@ -73,7 +72,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         this.addDecoCollection(new DecoCollectionWoodland(this.getConfig()));
     }
 
-    public class TerrainBOPWoodland extends TerrainBase {
+    public static class TerrainBOPWoodland extends TerrainBase {
 
         private float start;
         private float height;
@@ -94,7 +93,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPWoodland extends SurfaceBase {
+    public static class SurfaceBOPWoodland extends SurfaceBase {
 
         public SurfaceBOPWoodland(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -106,7 +105,7 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();
@@ -144,7 +143,8 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
         }
     }
 
-    private class DecoCollectionWoodland extends DecoCollectionBase {
+    // TODO: [1.12] Useless subclass. Just addDeco the Decos in #initDecos!
+    private static class DecoCollectionWoodland extends DecoCollectionBase {
 
         // Tends to return values between -3f to 5f, with some overflow.
         private DecoTree.Distribution forestDistribution = new DecoTree.Distribution(100f, 6f, 0.8f);
@@ -166,7 +166,6 @@ public class RealisticBiomeBOPWoodland extends RealisticBiomeBOPBase {
                 .addDeco(shrubsSpruce()) // Fewer spruce shrubs than oak.
                 .addDeco(flowers()) // Only 1-block tall flowers so we can see the trees better.
                 .addDeco(grass()) // Grass filler.
-                .addDeco(new DecoBaseBiomeDecorations())
             ;
         }
 

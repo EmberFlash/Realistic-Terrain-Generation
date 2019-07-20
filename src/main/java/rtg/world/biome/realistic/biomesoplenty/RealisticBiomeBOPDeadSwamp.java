@@ -47,7 +47,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
         return new SurfaceBOPDeadSwamp(getConfig(), BOPBlocks.grass.getDefaultState(), BOPBlocks.dirt.getDefaultState(), BOPBlocks.mud.getDefaultState());
     }
 
-    public class TerrainBOPDeadSwamp extends TerrainBase {
+    public static class TerrainBOPDeadSwamp extends TerrainBase {
 
         private HeightEffect height;
 
@@ -69,7 +69,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPDeadSwamp extends SurfaceBase {
+    public static class SurfaceBOPDeadSwamp extends SurfaceBase {
 
         private IBlockState mix;
         private float mixHeight;
@@ -87,7 +87,7 @@ public class RealisticBiomeBOPDeadSwamp extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(2);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

@@ -12,7 +12,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.biome.RealisticBiomeBase;
@@ -46,8 +45,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
 
         if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
 
-            return new SurfacePolar(getConfig(),
-                Blocks.SNOW.getDefaultState(), //Block top
+            return new SurfacePolar(getConfig(), Blocks.SNOW.getDefaultState(), //Block top
                 biome.fillerBlock, //Block filler,
                 Blocks.SNOW.getDefaultState(), //IBlockState mixTop,
                 biome.fillerBlock, //IBlockState mixFill,
@@ -66,12 +64,9 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
-    public class TerrainVanillaIcePlains extends TerrainBase {
+    public static class TerrainVanillaIcePlains extends TerrainBase {
 
         public TerrainVanillaIcePlains() {
 
@@ -84,7 +79,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaIcePlains extends SurfaceBase {
+    public static class SurfaceVanillaIcePlains extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
@@ -101,7 +96,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();
@@ -132,7 +127,7 @@ public class RealisticBiomeVanillaIcePlains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfacePolar extends SurfaceBase {
+    public static class SurfacePolar extends SurfaceBase {
 
         private IBlockState blockMixTop;
         private IBlockState blockMixFiller;

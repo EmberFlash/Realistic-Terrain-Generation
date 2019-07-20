@@ -33,8 +33,6 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeBase {
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
-        this.getConfig().USE_CUSTOM_BIOME_TEMPERATURE.set(true);
-        this.getConfig().BIOME_TEMPERATURE.set(0.25f);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
     }
 
@@ -56,17 +54,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig()));
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
-    @Override
-    public boolean generatesSilverfish() {
-        return true;
-    }
-
-    public class TerrainVanillaExtremeHillsPlusM extends TerrainBase {
+    public static class TerrainVanillaExtremeHillsPlusM extends TerrainBase {
 
         private float width;
         private float strength;
@@ -85,7 +73,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaExtremeHillsPlusM extends SurfaceBase {
+    public static class SurfaceVanillaExtremeHillsPlusM extends SurfaceBase {
 
         private float min;
 
@@ -184,4 +172,7 @@ public class RealisticBiomeVanillaExtremeHillsPlusM extends RealisticBiomeBase {
             }
         }
     }
+
+    @Override
+    public double getSnowLayerMultiplier() { return GENERAL_SNOWLAYER_REDUCTION; }
 }

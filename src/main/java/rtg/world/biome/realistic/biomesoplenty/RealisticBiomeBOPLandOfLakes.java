@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -15,7 +13,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoShrub;
@@ -29,7 +26,7 @@ import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.HeightVariation;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
@@ -109,8 +106,6 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(12);
         decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE), BlockUtil.getStateLog(EnumType.BIRCH)});
         decoFallenTree.setMinSize(8);
@@ -128,11 +123,9 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         decoBoulder.setChance(12);
         decoBoulder.setStrengthFactor(1f);
         this.addDeco(decoBoulder);
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
-    public class TerrainBOPLandOfLakes extends TerrainBase {
+    public static class TerrainBOPLandOfLakes extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -181,7 +174,7 @@ public class RealisticBiomeBOPLandOfLakes extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPLandOfLakes extends SurfaceBase {
+    public static class SurfaceBOPLandOfLakes extends SurfaceBase {
 
         private float min;
 

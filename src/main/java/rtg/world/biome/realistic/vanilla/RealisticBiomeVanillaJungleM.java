@@ -53,11 +53,11 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 2;
+    public double waterLakeMult() {
+        return 0.5;
     }
 
-    public class TerrainVanillaJungleM extends TerrainBase {
+    public static class TerrainVanillaJungleM extends TerrainBase {
 
         public TerrainVanillaJungleM() {
 
@@ -70,7 +70,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaJungleM extends SurfaceBase {
+    public static class SurfaceVanillaJungleM extends SurfaceBase {
 
         public SurfaceVanillaJungleM(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -82,7 +82,7 @@ public class RealisticBiomeVanillaJungleM extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

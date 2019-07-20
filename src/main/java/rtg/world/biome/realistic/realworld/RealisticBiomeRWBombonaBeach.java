@@ -36,16 +36,10 @@ public class RealisticBiomeRWBombonaBeach extends RealisticBiomeRWBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceRWBombonaBeach(getConfig(),
-            this.baseBiome().topBlock,
-            this.baseBiome().fillerBlock,
-            this.baseBiome().topBlock,
-            this.baseBiome().fillerBlock,
-            1
-        );
+        return new SurfaceRWBombonaBeach(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock, this.baseBiome().topBlock, this.baseBiome().fillerBlock, 1);
     }
 
-    public class TerrainRWBombonaBeach extends TerrainBase {
+    public static class TerrainRWBombonaBeach extends TerrainBase {
 
         public TerrainRWBombonaBeach() {
 
@@ -58,7 +52,7 @@ public class RealisticBiomeRWBombonaBeach extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWBombonaBeach extends SurfaceBase {
+    public static class SurfaceRWBombonaBeach extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
@@ -79,7 +73,7 @@ public class RealisticBiomeRWBombonaBeach extends RealisticBiomeRWBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.3f ? true : false;
+            boolean cliff = c > 1.3f;
             boolean dirt = false;
 
             for (int k = 255; k > -1; k--) {

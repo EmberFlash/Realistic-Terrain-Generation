@@ -52,7 +52,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionTaiga(this.getConfig(), 8f));
     }
 
-    public class TerrainVanillaColdTaigaM extends TerrainBase {
+    public static class TerrainVanillaColdTaigaM extends TerrainBase {
 
         public TerrainVanillaColdTaigaM() {
 
@@ -65,7 +65,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaColdTaigaM extends SurfaceBase {
+    public static class SurfaceVanillaColdTaigaM extends SurfaceBase {
 
         public SurfaceVanillaColdTaigaM(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -77,7 +77,7 @@ public class RealisticBiomeVanillaColdTaigaM extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

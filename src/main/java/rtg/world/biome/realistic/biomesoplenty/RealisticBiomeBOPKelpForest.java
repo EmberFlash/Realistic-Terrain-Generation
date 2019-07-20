@@ -43,7 +43,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
         return new SurfaceBOPKelpForest(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPKelpForest extends TerrainBase {
+    public static class TerrainBOPKelpForest extends TerrainBase {
 
         private boolean booRiver;
         private float[] height;
@@ -95,7 +95,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPKelpForest extends SurfaceBase {
+    public static class SurfaceBOPKelpForest extends SurfaceBase {
 
         public SurfaceBOPKelpForest(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -107,7 +107,7 @@ public class RealisticBiomeBOPKelpForest extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

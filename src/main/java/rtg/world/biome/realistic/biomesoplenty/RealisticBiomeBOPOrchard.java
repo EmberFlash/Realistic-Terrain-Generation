@@ -12,7 +12,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -52,8 +51,6 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        this.addDeco(new DecoBaseBiomeDecorations());
-
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
@@ -67,7 +64,7 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPOrchard extends TerrainBase {
+    public static class TerrainBOPOrchard extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -87,7 +84,7 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOrchard extends SurfaceBase {
+    public static class SurfaceBOPOrchard extends SurfaceBase {
 
         public SurfaceBOPOrchard(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -99,7 +96,7 @@ RealisticBiomeBOPOrchard extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

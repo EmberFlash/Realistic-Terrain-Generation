@@ -14,7 +14,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
@@ -46,7 +45,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
         return new TerrainACDarklands();
     }
 
-    public class TerrainACDarklands extends TerrainBase {
+    public static class TerrainACDarklands extends TerrainBase {
 
         private float hillStrength = 40f;
 
@@ -75,7 +74,7 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
         return new SurfaceACDarklands(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.15f);
     }
 
-    public class SurfaceACDarklands extends SurfaceACBase {
+    public static class SurfaceACDarklands extends SurfaceACBase {
 
         private float min;
 
@@ -194,8 +193,5 @@ public class RealisticBiomeACDarklands extends RealisticBiomeACBase {
         decoShrubCustom.setNotEqualsZeroChance(3);
         decoShrubCustom.setStrengthFactor(2f);
         this.addDeco(decoShrubCustom);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

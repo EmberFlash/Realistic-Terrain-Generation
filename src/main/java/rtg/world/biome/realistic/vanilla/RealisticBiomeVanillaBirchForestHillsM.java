@@ -51,7 +51,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionBirchForest(this.getConfig()));
     }
 
-    public class TerrainVanillaBirchForestHillsM extends TerrainBase {
+    public static class TerrainVanillaBirchForestHillsM extends TerrainBase {
 
         private float hillStrength = 70f;
 
@@ -66,7 +66,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaBirchForestHillsM extends SurfaceBase {
+    public static class SurfaceVanillaBirchForestHillsM extends SurfaceBase {
 
         public SurfaceVanillaBirchForestHillsM(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -78,7 +78,7 @@ public class RealisticBiomeVanillaBirchForestHillsM extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

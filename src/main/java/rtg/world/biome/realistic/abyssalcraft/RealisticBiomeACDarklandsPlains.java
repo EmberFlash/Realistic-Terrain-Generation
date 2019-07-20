@@ -36,7 +36,7 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
         return new TerrainACDarklandsPlains();
     }
 
-    public class TerrainACDarklandsPlains extends TerrainBase {
+    public static class TerrainACDarklandsPlains extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -57,7 +57,7 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
         return new SurfaceACDarklandsPlains(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class SurfaceACDarklandsPlains extends SurfaceACBase {
+    public static class SurfaceACDarklandsPlains extends SurfaceACBase {
 
         public SurfaceACDarklandsPlains(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -69,7 +69,7 @@ public class RealisticBiomeACDarklandsPlains extends RealisticBiomeACBase {
 
             Random rand = rtgWorld.rand();
             float c = WorldUtil.Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

@@ -41,16 +41,10 @@ public class RealisticBiomeBOPOriginBeach extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPOriginBeach(getConfig(),
-            biome.topBlock,
-            biome.fillerBlock,
-            biome.topBlock,
-            biome.fillerBlock,
-            1
-        );
+        return new SurfaceBOPOriginBeach(getConfig(), biome.topBlock, biome.fillerBlock, biome.topBlock, biome.fillerBlock, 1);
     }
 
-    public class TerrainBOPOriginBeach extends TerrainBase {
+    public static class TerrainBOPOriginBeach extends TerrainBase {
 
         public TerrainBOPOriginBeach() {
 
@@ -63,7 +57,7 @@ public class RealisticBiomeBOPOriginBeach extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOriginBeach extends SurfaceBase {
+    public static class SurfaceBOPOriginBeach extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
@@ -84,7 +78,7 @@ public class RealisticBiomeBOPOriginBeach extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.3f ? true : false;
+            boolean cliff = c > 1.3f;
             boolean dirt = false;
 
             for (int k = 255; k > -1; k--) {

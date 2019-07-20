@@ -40,7 +40,7 @@ public class RealisticBiomeFLORITulipLand extends RealisticBiomeFLORIBase {
         return new SurfaceFLORITulipLand(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    public class TerrainFLORITulipLand extends TerrainBase {
+    public static class TerrainFLORITulipLand extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(6f);
 
@@ -55,7 +55,7 @@ public class RealisticBiomeFLORITulipLand extends RealisticBiomeFLORIBase {
         }
     }
 
-    public class SurfaceFLORITulipLand extends SurfaceBase {
+    public static class SurfaceFLORITulipLand extends SurfaceBase {
 
         public SurfaceFLORITulipLand(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -67,7 +67,7 @@ public class RealisticBiomeFLORITulipLand extends RealisticBiomeFLORIBase {
 
             Random rand = rtgWorld.rand();
             float c = WorldUtil.Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

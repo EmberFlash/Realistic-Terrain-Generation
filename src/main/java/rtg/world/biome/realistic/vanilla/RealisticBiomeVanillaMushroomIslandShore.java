@@ -12,7 +12,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.biome.RealisticBiomeBase;
@@ -47,12 +46,9 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
-    public class TerrainVanillaMushroomIslandShore extends TerrainBase {
+    public static class TerrainVanillaMushroomIslandShore extends TerrainBase {
 
         public TerrainVanillaMushroomIslandShore() {
 
@@ -65,7 +61,7 @@ public class RealisticBiomeVanillaMushroomIslandShore extends RealisticBiomeBase
         }
     }
 
-    public class SurfaceVanillaMushroomIslandShore extends SurfaceBase {
+    public static class SurfaceVanillaMushroomIslandShore extends SurfaceBase {
 
         private float min;
 

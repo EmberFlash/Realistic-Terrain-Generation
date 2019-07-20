@@ -587,11 +587,9 @@ public abstract class TerrainBase {
     }
 
     public static float getRiverStrength(final BlockPos blockPos, final RTGWorld rtgWorld) {
-        return getRiverStrength(blockPos.getX(), blockPos.getZ(), rtgWorld);
-    }
 
-    public static float getRiverStrength(final int worldX, final int worldZ, final RTGWorld rtgWorld) {
-
+        final int worldX = blockPos.getX();
+        final int worldZ = blockPos.getZ();
         double pX = worldX;
         double pZ = worldZ;
         ISimplexData2D jitterData = SimplexData2D.newDisk();
@@ -619,25 +617,6 @@ public abstract class TerrainBase {
         }// no river effect
         return (float) (riverFactor / rtgWorld.getRiverValleyLevel() - 1d);
     }
-
-    public static final float borderAdjusted(float effect, float border, float allAbove, float noneBelow) {
-        // this routine adjusts an effect to ignore the border variable above allAbove
-        // and interpolated down to 0 at noneBelow
-        if (border < noneBelow) {
-            return 0;
-        }
-        if (border >= 1f) {
-            return effect;
-        }
-        // adjust effect for border
-        float adjusted = effect / border;
-        if (border > allAbove) {
-            return adjusted;
-        }
-        // return interpolated value
-        return adjusted * (border - noneBelow) / (allAbove - noneBelow);
-    }
-
 
     public abstract float generateNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 }

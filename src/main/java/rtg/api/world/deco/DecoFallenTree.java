@@ -1,17 +1,16 @@
 package rtg.api.world.deco;
 
-import java.util.Random;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos.MutableBlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.BlockUtil.MatchType;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.IRealisticBiome;
 import rtg.api.world.gen.feature.WorldGenLog;
+
+import java.util.Random;
 
 
 /**
@@ -41,8 +40,7 @@ public class DecoFallenTree extends DecoBase {
          */
         this.setLoops(1);
         this.setDistribution(new DecoFallenTree.Distribution(100f, 5f, 0.8f));
-        this.setLogCondition(LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        this.setLogConditionNoise(0f);
+        this.setLogCondition(LogCondition.RANDOM_CHANCE);
         this.setLogConditionChance(1);
         this.setMaxY(80);
         this.setLogBlock(Blocks.LOG.getDefaultState());
@@ -54,80 +52,44 @@ public class DecoFallenTree extends DecoBase {
         this.addDecoTypes(DecoType.FALLEN_TREE);
     }
 
-    // TODO: [1.12] Remove this unused constructor.
-    public DecoFallenTree(DecoFallenTree source) {
-
-        this();
-        this.setLoops(source.loops);
-        this.setDistribution(source.distribution);
-        this.setLogCondition(source.logCondition);
-        this.setLogConditionNoise(source.logConditionNoise);
-        this.setLogConditionChance(source.logConditionChance);
-        this.setMaxY(source.maxY);
-        this.setLogBlock(source.logBlock);
-        this.setLeavesBlock(source.leavesBlock);
-        this.setMinSize(source.minSize);
-        this.setMaxSize(source.maxSize);
-        this.randomLogBlocks = source.randomLogBlocks;
-    }
-
     @Override
-    public void generate(IRealisticBiome biome, RTGWorld rtgWorld, Random rand, int worldX, int worldZ, float strength, float river, boolean hasPlacedVillageBlocks) {
+    public void generate(final IRealisticBiome biome, final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
 
-        if (this.allowed) {
+        final BlockPos offsetpos = getOffsetPos(chunkPos);
 
-            float noise = rtgWorld.simplexInstance(0).noise2f(worldX / this.distribution.getNoiseDivisor(), worldZ / this.distribution.getNoiseDivisor());
-            noise *= this.distribution.getNoiseFactor() + this.distribution.getNoiseAddend();
+        //Do we want to choose a random log?
+        if (this.randomLogBlocks.length > 0) {
+            this.setLogBlock(this.randomLogBlocks[rand.nextInt(this.randomLogBlocks.length)]);
+        }
 
-            //Do we want to choose a random log?
-            if (this.randomLogBlocks.length > 0) {
-                this.setLogBlock(this.randomLogBlocks[rand.nextInt(this.randomLogBlocks.length)]);
-            }
+        // Adjust the chance according to biome config.
+        this.setLogConditionChance(this.adjustChanceFromMultiplier(this.getLogConditionChance(), biome.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER.get()));
 
-            WorldGenerator worldGenerator = null;
-            int finalSize = 4;
+        final int finalSize = (this.maxSize > this.minSize) ? getRangedRandom(rand, this.minSize, this.maxSize) : (this.maxSize == this.minSize) ? this.minSize : 4;
 
-            // Adjust the chance according to biome config.
-            this.setLogConditionChance(this.adjustChanceFromMultiplier(this.getLogConditionChance(), biome.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER.get()));
+        for (int i = 0; i < this.loops; i++) {
+            if (isValidLogCondition(strength, rand)) {
 
-            if (this.maxSize > this.minSize) {
-                finalSize = this.minSize + rand.nextInt(this.maxSize - this.minSize);
-                worldGenerator = new WorldGenLog(this.logBlock, this.leavesBlock, finalSize);
-            }
-            else if (this.maxSize == this.minSize) {
-                finalSize = this.minSize;
-                worldGenerator = new WorldGenLog(this.logBlock, this.leavesBlock, finalSize);
-            }
-            else {
-                worldGenerator = new WorldGenLog(this.logBlock, this.leavesBlock, finalSize);
-            }
+                BlockPos pos = offsetpos.add(rand.nextInt(16), 0, rand.nextInt(16));
+                pos = pos.up(rtgWorld.world().getHeight(pos).getY());
 
-            final World world = rtgWorld.world();
-            MutableBlockPos mpos = new MutableBlockPos();
-            for (int i = 0; i < this.loops; i++) {
-                if (isValidLogCondition(noise, strength, rand)) {
-                    int x = worldX + rand.nextInt(16) + 8;
-                    int z = worldZ + rand.nextInt(16) + 8;
-                    int y = rtgWorld.world().getHeight(mpos.setPos(x, 0, z)).getY();
-                    mpos.setPos(x, y, z);
+                if (pos.getY() <= this.maxY) {
 
-                    if (y <= this.maxY) {
-
-                        // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
-                        if (hasPlacedVillageBlocks) {
+                    // If we're in a village, check to make sure the log has extra room to grow to avoid corrupting the village.
+                    if (hasVillage) {
 // TODO: [1.12] May need to add a check to prevent fallen logs from generating over village farmland. [LOLOL IT'S A FEATURE NOT A BUG!]
-                            if (!BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, world, mpos, finalSize)) {
-                                return;
-                            }
+                        if (!BlockUtil.checkAreaBlocks(MatchType.ALL_IGNORE_REPLACEABLE, rtgWorld.world(), pos, finalSize)) {
+                            return;
                         }
-                        worldGenerator.generate(world, rand, mpos);
                     }
+                    new WorldGenLog(this.logBlock, this.leavesBlock, finalSize)
+                        .generate(rtgWorld.world(), rand, pos);
                 }
             }
         }
     }
 
-    public boolean isValidLogCondition(float noise, float strength, Random rand) {
+    public boolean isValidLogCondition(float strength, Random rand) {
 
         switch (this.logCondition) {
             case ALWAYS_GENERATE:
@@ -137,14 +99,6 @@ public class DecoFallenTree extends DecoBase {
             case RANDOM_CHANCE:
 
                 return (rand.nextInt(this.logConditionChance) == 0);
-
-            case NOISE_GREATER_AND_RANDOM_CHANCE:
-
-                return (noise > this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
-
-            case NOISE_LESS_AND_RANDOM_CHANCE:
-
-                return (noise < this.logConditionNoise && rand.nextInt(this.logConditionChance) == 0);
 
             case X_DIVIDED_BY_STRENGTH:
 
@@ -191,12 +145,6 @@ public class DecoFallenTree extends DecoBase {
     public float getLogConditionNoise() {
 
         return logConditionNoise;
-    }
-
-    public DecoFallenTree setLogConditionNoise(float logConditionNoise) {
-
-        this.logConditionNoise = logConditionNoise;
-        return this;
     }
 
     public int getLogConditionChance() {
@@ -279,9 +227,7 @@ public class DecoFallenTree extends DecoBase {
     public enum LogCondition {
         ALWAYS_GENERATE,
         RANDOM_CHANCE,
-        NOISE_GREATER_AND_RANDOM_CHANCE,
-        NOISE_LESS_AND_RANDOM_CHANCE,
-        X_DIVIDED_BY_STRENGTH;
+        X_DIVIDED_BY_STRENGTH
     }
 
     /**

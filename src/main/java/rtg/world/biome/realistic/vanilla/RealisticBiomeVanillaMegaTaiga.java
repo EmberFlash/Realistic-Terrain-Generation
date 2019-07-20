@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -15,19 +13,13 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoMushrooms;
-import rtg.api.world.deco.DecoPumpkin;
-import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.*;
 import rtg.api.world.deco.collection.DecoCollectionMegaTaiga;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
@@ -74,8 +66,6 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(6);
         decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
@@ -89,9 +79,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
         decoShrub.setChance(10);
         this.addDeco(decoShrub);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setEqualsZeroChance(3);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setEqualsZeroChance(3);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
@@ -111,7 +99,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainVanillaMegaTaiga extends TerrainBase {
+    public static class TerrainVanillaMegaTaiga extends TerrainBase {
 
         public TerrainVanillaMegaTaiga() {
 
@@ -124,7 +112,7 @@ public class RealisticBiomeVanillaMegaTaiga extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaMegaTaiga extends SurfaceBase {
+    public static class SurfaceVanillaMegaTaiga extends SurfaceBase {
 
         public SurfaceVanillaMegaTaiga(BiomeConfig config, IBlockState top, IBlockState fill) {
 

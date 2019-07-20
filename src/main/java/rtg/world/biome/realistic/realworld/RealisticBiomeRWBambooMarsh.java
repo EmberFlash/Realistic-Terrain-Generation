@@ -39,7 +39,7 @@ public class RealisticBiomeRWBambooMarsh extends RealisticBiomeRWBase {
         return new SurfaceRWBambooMarsh(getConfig(), this.baseBiome().topBlock, this.baseBiome().fillerBlock);
     }
 
-    public class TerrainRWBambooMarsh extends TerrainBase {
+    public static class TerrainRWBambooMarsh extends TerrainBase {
 
         private float baseHeight = 62f;
         private HeightVariation variation;
@@ -65,7 +65,7 @@ public class RealisticBiomeRWBambooMarsh extends RealisticBiomeRWBase {
         }
     }
 
-    public class SurfaceRWBambooMarsh extends SurfaceBase {
+    public static class SurfaceRWBambooMarsh extends SurfaceBase {
 
         public SurfaceRWBambooMarsh(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -77,7 +77,7 @@ public class RealisticBiomeRWBambooMarsh extends RealisticBiomeRWBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

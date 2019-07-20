@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.abyssalcraft;
 
-import java.util.Random;
-
 import com.shinoow.abyssalcraft.api.biome.ACBiomes;
 import com.shinoow.abyssalcraft.api.block.ACBlocks;
 import net.minecraft.block.Block;
@@ -14,14 +12,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
@@ -47,7 +44,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
         return new TerrainACDarklandsForest();
     }
 
-    public class TerrainACDarklandsForest extends TerrainBase {
+    public static class TerrainACDarklandsForest extends TerrainBase {
 
         private float hillStrength = 10f;// this needs to be linked to the
 
@@ -74,7 +71,7 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
         return new SurfaceACDarklandsForest(getConfig(), biome.topBlock, biome.fillerBlock, 0f, 1.5f, 60f, 65f, 1.5f, biome.topBlock, 0.10f);
     }
 
-    public class SurfaceACDarklandsForest extends SurfaceACBase {
+    public static class SurfaceACDarklandsForest extends SurfaceACBase {
 
         private float min;
 
@@ -178,8 +175,6 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
     public void initDecos() {
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(12);
         decoFallenTree.setLogBlock(ACBlocks.darklands_oak_wood.getDefaultState());
         decoFallenTree.setLeavesBlock(ACBlocks.darklands_oak_leaves.getDefaultState());
@@ -199,8 +194,5 @@ public class RealisticBiomeACDarklandsForest extends RealisticBiomeACBase {
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(8f);
         this.addDeco(decoGrass);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 }

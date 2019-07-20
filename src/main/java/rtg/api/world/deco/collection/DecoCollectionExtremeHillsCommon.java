@@ -5,20 +5,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoLargeFernDoubleTallgrass;
-import rtg.api.world.deco.DecoMushrooms;
-import rtg.api.world.deco.DecoPumpkin;
-import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.*;
 import rtg.api.world.deco.helper.DecoHelper5050;
 
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 
 
 /**
@@ -36,7 +26,6 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
             .addDeco(flowers()) // Flowers.
             .addDeco(mushrooms()) // Mushrooms.
             .addDeco(pumpkins()) // Pumpkins.
-            .addDeco(doublePlants()) // Ferns & double tall grass.
             .addDeco(grass()); // Grass.
     }
 
@@ -46,8 +35,6 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(16);
         decoFallenTree.setLogBlock(log);
         decoFallenTree.setLeavesBlock(leaves);
@@ -114,14 +101,6 @@ public class DecoCollectionExtremeHillsCommon extends DecoCollectionBase {
         decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(30f);
         return decoPumpkin;
-    }
-
-    private DecoLargeFernDoubleTallgrass doublePlants() {
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
-        decoDoublePlants.fernChance = 3;
-        decoDoublePlants.setLoops(15);
-        return decoDoublePlants;
     }
 
     private DecoGrass grass() {

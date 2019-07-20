@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -15,13 +13,12 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
@@ -49,8 +46,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPEucalyptusForest(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPEucalyptusForest(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -75,19 +71,15 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(16);
         decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.JUNGLE));
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.JUNGLE));
         decoFallenTree.setMinSize(8);
         decoFallenTree.setMaxSize(14);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
-    public class TerrainBOPEucalyptusForest extends TerrainBase {
+    public static class TerrainBOPEucalyptusForest extends TerrainBase {
 
         private float baseHeight = 76f;
         private float peakyHillWavelength = 40f;
@@ -110,7 +102,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPEucalyptusForest extends SurfaceBase {
+    public static class SurfaceBOPEucalyptusForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -140,7 +132,7 @@ public class RealisticBiomeBOPEucalyptusForest extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

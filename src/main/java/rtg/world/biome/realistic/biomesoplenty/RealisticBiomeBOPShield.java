@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
@@ -15,12 +13,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.helper.DecoHelper5050;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
@@ -56,8 +55,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        this.addDeco(new DecoBaseBiomeDecorations());
-
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.setMaxY(80);
@@ -70,7 +67,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree1.getDistribution().setNoiseFactor(60f);
         decoFallenTree1.getDistribution().setNoiseAddend(-15f);
         decoFallenTree1.setLogCondition(RANDOM_CHANCE);
-        decoFallenTree1.setLogConditionNoise(0f);
         decoFallenTree1.setLogConditionChance(6);
         decoFallenTree1.setMaxY(100);
         decoFallenTree1.setLogBlock(BOPBlocks.log_2.getStateFromMeta(6));
@@ -83,7 +79,6 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         decoFallenTree2.getDistribution().setNoiseFactor(60f);
         decoFallenTree2.getDistribution().setNoiseAddend(-15f);
         decoFallenTree2.setLogCondition(RANDOM_CHANCE);
-        decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(6);
         decoFallenTree2.setMaxY(100);
         decoFallenTree2.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
@@ -96,7 +91,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
     }
 
     // this biome also changes the lake generation in RealisticBiomeBase
-    public class TerrainBOPShield extends TerrainBase {
+    public static class TerrainBOPShield extends TerrainBase {
 
         private float start;
         private float height;
@@ -118,7 +113,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPShield extends SurfaceBase {
+    public static class SurfaceBOPShield extends SurfaceBase {
 
         public SurfaceBOPShield(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -130,7 +125,7 @@ public class RealisticBiomeBOPShield extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

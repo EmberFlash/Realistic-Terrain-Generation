@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.betteragriculture;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
@@ -13,16 +11,11 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoCrop;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoShrub;
+import rtg.api.world.deco.*;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
@@ -47,8 +40,7 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBAFarmlandBiome(getConfig(),
-            this.baseBiome().topBlock, //Block top
+        return new SurfaceBAFarmlandBiome(getConfig(), this.baseBiome().topBlock, //Block top
             Blocks.DIRT.getDefaultState(), //Block filler,
             BlockUtil.getStateDirt(DirtType.COARSE_DIRT), //IBlockState mixTop,
             Blocks.DIRT.getDefaultState(), //IBlockState mixFill,
@@ -66,8 +58,6 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(24);
         decoFallenTree.setLogBlock(Blocks.LOG.getDefaultState());
         decoFallenTree.setLeavesBlock(Blocks.LOG.getDefaultState());
@@ -128,11 +118,6 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
         decoBoulder.setStrengthFactor(4f);
         this.addDeco(decoBoulder);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(105);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
-        this.addDeco(decoBaseBiomeDecorations);
-
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.setMinY(63);
@@ -141,7 +126,7 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainBAFarmlandBiome extends TerrainBase {
+    public static class TerrainBAFarmlandBiome extends TerrainBase {
 
         private float baseHeight = 67f;
         private float peakyHillWavelength = 15f;
@@ -164,7 +149,7 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
         }
     }
 
-    public class SurfaceBAFarmlandBiome extends SurfaceBase {
+    public static class SurfaceBAFarmlandBiome extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -194,7 +179,7 @@ public class RealisticBiomeBAFarmlandBiome extends RealisticBiomeBABase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

@@ -44,11 +44,11 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 2;
+    public double waterLakeMult() {
+        return 0.5;
     }
 
-    public class TerrainBOPSacredSprings extends TerrainBase {
+    public static class TerrainBOPSacredSprings extends TerrainBase {
 
         private float width;
         private float strength;
@@ -71,7 +71,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPSacredSprings extends SurfaceBase {
+    public static class SurfaceBOPSacredSprings extends SurfaceBase {
 
         public SurfaceBOPSacredSprings(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -83,7 +83,7 @@ public class RealisticBiomeBOPSacredSprings extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

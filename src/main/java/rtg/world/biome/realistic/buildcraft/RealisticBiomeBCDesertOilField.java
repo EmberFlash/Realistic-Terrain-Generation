@@ -57,11 +57,11 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
-    public class TerrainBCOilDesert extends TerrainBase {
+    public static class TerrainBCOilDesert extends TerrainBase {
 
         public TerrainBCOilDesert() {
 
@@ -85,7 +85,7 @@ public class RealisticBiomeBCDesertOilField extends RealisticBiomeBCBase {
         }
     }
 
-    public class SurfaceBCOilDesert extends SurfaceBase {
+    public static class SurfaceBCOilDesert extends SurfaceBase {
 
         public SurfaceBCOilDesert(BiomeConfig config, IBlockState top, IBlockState fill) {
 

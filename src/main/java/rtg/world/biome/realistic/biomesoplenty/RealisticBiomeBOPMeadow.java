@@ -42,7 +42,7 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase {
         return new SurfaceBOPMeadow(getConfig(), biome.topBlock, biome.fillerBlock);
     }
 
-    public class TerrainBOPMeadow extends TerrainBase {
+    public static class TerrainBOPMeadow extends TerrainBase {
 
         public TerrainBOPMeadow() {
 
@@ -55,7 +55,7 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMeadow extends SurfaceBase {
+    public static class SurfaceBOPMeadow extends SurfaceBase {
 
         public SurfaceBOPMeadow(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -67,7 +67,7 @@ public class RealisticBiomeBOPMeadow extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

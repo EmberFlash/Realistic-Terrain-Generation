@@ -46,8 +46,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPXericShrubland(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPXericShrubland(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -58,7 +57,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
         );
     }
 
-    public class TerrainBOPXericShrubland extends TerrainBase {
+    public static class TerrainBOPXericShrubland extends TerrainBase {
 
         private float minHeight;
         private float mesaWavelength;
@@ -107,7 +106,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPXericShrubland extends SurfaceBase {
+    public static class SurfaceBOPXericShrubland extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -137,7 +136,7 @@ public class RealisticBiomeBOPXericShrubland extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 2.4f ? true : false;
+            boolean cliff = c > 2.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

@@ -1,9 +1,8 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -13,22 +12,14 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoDeadBush;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoGrassDoubleTallgrass;
-import rtg.api.world.deco.DecoMushrooms;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
+import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.*;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
@@ -97,9 +88,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(16);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         decoFallenTree.setMinSize(4);
@@ -110,12 +99,6 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         decoShrub.setMaxY(110);
         decoShrub.setStrengthFactor(1f);
         this.addDeco(decoShrub);
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setMaxY(128);
-        decoGrassDoubleTallgrass.setStrengthFactor(8f);
-        decoGrassDoubleTallgrass.setDoubleGrassChance(6);
-        this.addDeco(decoGrassDoubleTallgrass);
 
         DecoDeadBush decoDeadBush = new DecoDeadBush();
         decoDeadBush.setMaxY(128);
@@ -129,14 +112,11 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         decoGrass.setChance(2);
         this.addDeco(decoGrass);
 
-        DecoGrass decoFern = new DecoGrass(2);
+        DecoGrass decoFern = new DecoGrass(BlockTallGrass.EnumType.FERN);
         decoFern.setMaxY(128);
         decoFern.setStrengthFactor(4f);
         decoFern.setChance(2);
         this.addDeco(decoFern);
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
@@ -144,7 +124,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         this.addDeco(decoMushrooms);
     }
 
-    public class TerrainVanillaRoofedForestM extends TerrainBase {
+    public static class TerrainVanillaRoofedForestM extends TerrainBase {
 
         public TerrainVanillaRoofedForestM() {
 
@@ -157,7 +137,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaRoofedForestM extends SurfaceBase {
+    public static class SurfaceVanillaRoofedForestM extends SurfaceBase {
 
         public SurfaceVanillaRoofedForestM(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -169,7 +149,7 @@ public class RealisticBiomeVanillaRoofedForestM extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

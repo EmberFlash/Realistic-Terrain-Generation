@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
@@ -13,18 +11,15 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoPumpkin;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
+import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.*;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGSalixMyrtilloides;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
@@ -101,17 +96,12 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(6);
         decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);
@@ -125,7 +115,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainVanillaSwamplandM extends TerrainBase {
+    public static class TerrainVanillaSwamplandM extends TerrainBase {
 
         private float width;
         private float strength;
@@ -145,7 +135,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaSwamplandM extends SurfaceBase {
+    public static class SurfaceVanillaSwamplandM extends SurfaceBase {
 
         public SurfaceVanillaSwamplandM(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -157,7 +147,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

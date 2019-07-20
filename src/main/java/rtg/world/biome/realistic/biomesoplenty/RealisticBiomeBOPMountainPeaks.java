@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
@@ -14,7 +12,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
@@ -25,7 +22,7 @@ import rtg.api.world.terrain.heighteffect.HeightEffect;
 import rtg.api.world.terrain.heighteffect.JitterEffect;
 import rtg.api.world.terrain.heighteffect.MountainsWithPassesEffect;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
@@ -55,8 +52,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPMountainPeaks(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPMountainPeaks(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -70,8 +66,6 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        this.addDeco(new DecoBaseBiomeDecorations());
-
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
         decoBoulder.setMaxY(90);
@@ -83,8 +77,6 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(6);
         decoFallenTree.setLogBlock(BOPBlocks.log_2.getStateFromMeta(6));
         decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
@@ -104,12 +96,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         this.addDeco(decoGrass);
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
-    public class TerrainBOPMountainPeaks extends TerrainBase {
+    public static class TerrainBOPMountainPeaks extends TerrainBase {
 
         private float width;
         private float strength;
@@ -147,7 +134,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMountainPeaks extends SurfaceBase {
+    public static class SurfaceBOPMountainPeaks extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -177,7 +164,7 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

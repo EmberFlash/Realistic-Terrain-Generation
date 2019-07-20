@@ -48,8 +48,8 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainVanillaSavannaPlateau extends TerrainBase {
+    public static class TerrainVanillaSavannaPlateau extends TerrainBase {
 
         private boolean booRiver;
         private float[] height;

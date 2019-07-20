@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
@@ -14,13 +12,12 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBase {
@@ -65,8 +62,6 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(16);
         decoFallenTree.setLogBlock(BOPBlocks.log_0.getStateFromMeta(7));
         decoFallenTree.setLeavesBlock(Blocks.LEAVES.getDefaultState());
@@ -74,12 +69,10 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
         decoFallenTree.setMaxSize(4);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(12);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setNotEqualsZeroChance(12);
     }
 
-    public class TerrainBOPSnowyConiferousForest extends TerrainBase {
+    public static class TerrainBOPSnowyConiferousForest extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -101,7 +94,7 @@ public class RealisticBiomeBOPSnowyConiferousForest extends RealisticBiomeBOPBas
         }
     }
 
-    public class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
+    public static class SurfaceBOPSnowyConiferousForest extends SurfaceBase {
 
         private float min;
 

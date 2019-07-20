@@ -10,7 +10,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.biome.RealisticBiomeBase;
@@ -45,17 +44,14 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeBase {
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
-    public class TerrainVanillaRiver extends TerrainBase {
+    public static class TerrainVanillaRiver extends TerrainBase {
 
         public TerrainVanillaRiver() {
 
@@ -68,7 +64,7 @@ public class RealisticBiomeVanillaRiver extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaRiver extends SurfaceBase {
+    public static class SurfaceVanillaRiver extends SurfaceBase {
 
         public SurfaceVanillaRiver(BiomeConfig config) {
 

@@ -16,7 +16,6 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoLargeFernDoubleTallgrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
@@ -81,11 +80,6 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         superTallBirch.setMaxY(100);
         this.addDeco(superTallBirch);
 
-        DecoLargeFernDoubleTallgrass decoDoublePlants = new DecoLargeFernDoubleTallgrass();
-        decoDoublePlants.setMaxY(128);
-        decoDoublePlants.setStrengthFactor(8f);
-        this.addDeco(decoDoublePlants);
-
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.setMaxY(128);
         decoGrass.setStrengthFactor(24f);
@@ -106,7 +100,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         this.addDeco(decoShrub);
     }
 
-    public class TerrainVanillaBirchForestM extends TerrainBase {
+    public static class TerrainVanillaBirchForestM extends TerrainBase {
 
         public TerrainVanillaBirchForestM() {
 
@@ -119,7 +113,7 @@ public class RealisticBiomeVanillaBirchForestM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaBirchForestM extends SurfaceBase {
+    public static class SurfaceVanillaBirchForestM extends SurfaceBase {
 
         private float min;
 

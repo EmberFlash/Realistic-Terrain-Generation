@@ -11,7 +11,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.collection.DecoCollectionIceTrees;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -52,12 +51,9 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
         if (this.getConfig().ALLOW_ICE_TREES.get()) {
             this.addDecoCollection(new DecoCollectionIceTrees(this.getConfig()));
         }
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
-    public class TerrainVanillaIcePlainsSpikes extends TerrainBase {
+    public static class TerrainVanillaIcePlainsSpikes extends TerrainBase {
 
         public TerrainVanillaIcePlainsSpikes() {
 
@@ -70,7 +66,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
+    public static class SurfaceVanillaIcePlainsSpikes extends SurfaceBase {
 
         private IBlockState cliffBlock1;
         private IBlockState cliffBlock2;
@@ -88,7 +84,7 @@ public class RealisticBiomeVanillaIcePlainsSpikes extends RealisticBiomeBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

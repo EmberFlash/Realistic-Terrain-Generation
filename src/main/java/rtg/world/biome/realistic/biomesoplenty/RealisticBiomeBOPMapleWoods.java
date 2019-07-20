@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -14,10 +12,11 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
+
+import java.util.Random;
 
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.X_DIVIDED_BY_STRENGTH;
 
@@ -58,17 +57,14 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
         decoFallenTree.setLogCondition(X_DIVIDED_BY_STRENGTH);
-        decoFallenTree.setLogConditionNoise(8f);
         decoFallenTree.setLogConditionChance(1);
         decoFallenTree.setRandomLogBlocks(new IBlockState[]{Blocks.LOG.getDefaultState(), BlockUtil.getStateLog(EnumType.SPRUCE)});
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
-    public class TerrainBOPMapleWoods extends TerrainBase {
+    public static class TerrainBOPMapleWoods extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -88,7 +84,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPMapleWoods extends SurfaceBase {
+    public static class SurfaceBOPMapleWoods extends SurfaceBase {
 
         public SurfaceBOPMapleWoods(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -100,7 +96,7 @@ public class RealisticBiomeBOPMapleWoods extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

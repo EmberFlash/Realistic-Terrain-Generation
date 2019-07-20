@@ -13,7 +13,6 @@ import net.minecraft.world.chunk.ChunkPrimer;
 import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -52,8 +51,6 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        this.addDeco(new DecoBaseBiomeDecorations());
-
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
@@ -66,7 +63,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPOminousWoods extends TerrainBase {
+    public static class TerrainBOPOminousWoods extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -86,7 +83,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPOminousWoods extends SurfaceBase {
+    public static class SurfaceBOPOminousWoods extends SurfaceBase {
 
         public SurfaceBOPOminousWoods(BiomeConfig config, IBlockState top, IBlockState filler) {
 
@@ -98,7 +95,7 @@ public class RealisticBiomeBOPOminousWoods extends RealisticBiomeBOPBase {
 
             Random rand = rtgWorld.rand();
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
 
             for (int k = 255; k > -1; k--) {
                 Block b = primer.getBlockState(x, k, z).getBlock();

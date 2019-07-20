@@ -32,8 +32,6 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
     @Override
     public void initConfig() {
         this.getConfig().ALLOW_RIVERS.set(false);
-        this.getConfig().USE_CUSTOM_BIOME_TEMPERATURE.set(true);
-        this.getConfig().BIOME_TEMPERATURE.set(0.25f);
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_BLOCK).set("");
         this.getConfig().addProperty(this.getConfig().SURFACE_MIX_FILLER_BLOCK).set("");
     }
@@ -56,17 +54,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionExtremeHillsCommon(this.getConfig()));
     }
 
-    @Override
-    public boolean generatesEmeralds() {
-        return true;
-    }
-
-    @Override
-    public boolean generatesSilverfish() {
-        return true;
-    }
-
-    public class TerrainVanillaExtremeHillsM extends TerrainBase {
+    public static class TerrainVanillaExtremeHillsM extends TerrainBase {
 
         private float start;
         private float height;
@@ -87,7 +75,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaExtremeHillsM extends SurfaceBase {
+    public static class SurfaceVanillaExtremeHillsM extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;
@@ -116,7 +104,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {
@@ -165,4 +153,7 @@ public class RealisticBiomeVanillaExtremeHillsM extends RealisticBiomeBase {
             }
         }
     }
+
+    @Override
+    public double getSnowLayerMultiplier() { return GENERAL_SNOWLAYER_REDUCTION; }
 }

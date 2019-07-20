@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.state.IBlockState;
@@ -14,10 +12,12 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionForest;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
@@ -56,11 +56,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceVanillaForest(
-            getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(),
-            0f, 1.5f, 60f, 65f, 1.5f,
-            BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, Blocks.STONE.getDefaultState(), -0.4f
-        );
+        return new SurfaceVanillaForest(getConfig(), Blocks.GRASS.getDefaultState(), Blocks.DIRT.getDefaultState(), 0f, 1.5f, 60f, 65f, 1.5f, BlockUtil.getStateDirt(DirtType.PODZOL), 0.6f, BlockUtil.getStateDirt(DirtType.PODZOL), -0.4f);
     }
 
     @Override
@@ -69,7 +65,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
         this.addDecoCollection(new DecoCollectionForest(this.getConfig()));
     }
 
-    public class TerrainVanillaForest extends TerrainBase {
+    public static class TerrainVanillaForest extends TerrainBase {
 
         private float hillStrength = 10f;// this needs to be linked to the
 
@@ -90,7 +86,7 @@ public class RealisticBiomeVanillaForest extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaForest extends SurfaceBase {
+    public static class SurfaceVanillaForest extends SurfaceBase {
 
         private float min;
 

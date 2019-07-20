@@ -12,7 +12,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.biome.RealisticBiomeBase;
@@ -46,31 +45,18 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
     public SurfaceBase initSurface() {
 
         if (this.getConfig().USE_ARCTIC_SURFACE.get()) {
-            return new SurfaceVanillaIceMountains(
-                getConfig(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
-                Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
-                Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
-                60f, -0.14f, 14f, 0.25f
-            );
+            return new SurfaceVanillaIceMountains(getConfig(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
         }
         else {
-            return new SurfaceVanillaIceMountains(
-                getConfig(), biome.topBlock, biome.fillerBlock,
-                Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(),
-                Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(),
-                60f, -0.14f, 14f, 0.25f
-            );
+            return new SurfaceVanillaIceMountains(getConfig(), biome.topBlock, biome.fillerBlock, Blocks.SNOW.getDefaultState(), Blocks.SNOW.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.ICE.getDefaultState(), 60f, -0.14f, 14f, 0.25f);
         }
     }
 
     @Override
     public void initDecos() {
-
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
     }
 
-    public class TerrainVanillaIceMountains extends TerrainBase {
+    public static class TerrainVanillaIceMountains extends TerrainBase {
 
         private float width;
         private float strength;
@@ -90,7 +76,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaIceMountains extends SurfaceBase {
+    public static class SurfaceVanillaIceMountains extends SurfaceBase {
 
         private IBlockState mixBlockTop;
         private IBlockState mixBlockFill;
@@ -123,7 +109,7 @@ public class RealisticBiomeVanillaIceMountains extends RealisticBiomeBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

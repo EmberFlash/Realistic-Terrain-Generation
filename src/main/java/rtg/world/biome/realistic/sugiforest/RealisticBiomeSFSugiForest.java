@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.sugiforest;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,7 +10,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
@@ -20,7 +17,7 @@ import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
@@ -48,8 +45,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceSFSugiForest(getConfig(),
-            this.baseBiome().topBlock, //Block top
+        return new SurfaceSFSugiForest(getConfig(), this.baseBiome().topBlock, //Block top
             this.baseBiome().fillerBlock, //Block filler,
             this.baseBiome().topBlock, //IBlockState mixTop,
             this.baseBiome().fillerBlock, //IBlockState mixFill,
@@ -67,8 +63,6 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(24);
         decoFallenTree.setLogBlock(sugiLogBlock);
         decoFallenTree.setLeavesBlock(sugiLeavesBlock);
@@ -97,10 +91,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoBoulder.setStrengthFactor(2f);
         this.addDeco(decoBoulder);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setMaxY(105);
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
 
         // Grass filler.
         DecoGrass decoGrass = new DecoGrass();
@@ -110,7 +101,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         this.addDeco(decoGrass);
     }
 
-    public class TerrainSFSugiForest extends TerrainBase {
+    public static class TerrainSFSugiForest extends TerrainBase {
 
         private float baseHeight = 72f;
         private float peakyHillWavelength = 40f;
@@ -133,7 +124,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         }
     }
 
-    public class SurfaceSFSugiForest extends SurfaceBase {
+    public static class SurfaceSFSugiForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -163,7 +154,7 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = WorldUtil.Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

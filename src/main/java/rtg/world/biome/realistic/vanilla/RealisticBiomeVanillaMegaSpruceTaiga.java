@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -15,13 +13,12 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeBase {
@@ -56,16 +53,11 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeBase {
     @Override
     public void initDecos() {
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        this.addDeco(decoBaseBiomeDecorations);
-
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.setLoops(1);
         decoFallenTree.getDistribution().setNoiseDivisor(100f);
         decoFallenTree.getDistribution().setNoiseFactor(6f);
         decoFallenTree.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogConditionChance(6);
         decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
@@ -74,7 +66,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainVanillaMegaSpruceTaiga extends TerrainBase {
+    public static class TerrainVanillaMegaSpruceTaiga extends TerrainBase {
 
         public TerrainVanillaMegaSpruceTaiga() {
 
@@ -87,7 +79,7 @@ public class RealisticBiomeVanillaMegaSpruceTaiga extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaMegaSpruceTaiga extends SurfaceBase {
+    public static class SurfaceVanillaMegaSpruceTaiga extends SurfaceBase {
 
         public SurfaceVanillaMegaSpruceTaiga(BiomeConfig config, IBlockState top, IBlockState fill) {
 

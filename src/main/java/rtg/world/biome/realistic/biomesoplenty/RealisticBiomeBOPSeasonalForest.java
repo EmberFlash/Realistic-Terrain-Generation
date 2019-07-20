@@ -15,7 +15,6 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.surface.SurfaceBase;
@@ -49,8 +48,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPSeasonalForest(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPSeasonalForest(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -63,8 +61,6 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
 
     @Override
     public void initDecos() {
-
-        this.addDeco(new DecoBaseBiomeDecorations());
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.COBBLESTONE.getDefaultState());
@@ -85,7 +81,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
     }
 
-    public class TerrainBOPSeasonalForest extends TerrainBase {
+    public static class TerrainBOPSeasonalForest extends TerrainBase {
 
         private float start;
         private float height;
@@ -107,7 +103,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPSeasonalForest extends SurfaceBase {
+    public static class SurfaceBOPSeasonalForest extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -137,7 +133,7 @@ public class RealisticBiomeBOPSeasonalForest extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

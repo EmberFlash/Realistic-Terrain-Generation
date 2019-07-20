@@ -13,7 +13,6 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoGrassDoubleTallgrass;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
@@ -43,8 +42,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPVolcanicIsland(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPVolcanicIsland(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -55,22 +53,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
         );
     }
 
-    @Override
-    public void initDecos() {
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setDoubleGrassChance(3);
-        decoGrassDoubleTallgrass.setLoops(15);
-        decoGrassDoubleTallgrass.setMaxY(128);
-        this.addDeco(decoGrassDoubleTallgrass);
-    }
-
-    @Override
-    public int lavaSurfaceLakeChance() {
-        return 1;
-    }
-
-    public class TerrainBOPVolcanicIsland extends TerrainBase {
+    public static class TerrainBOPVolcanicIsland extends TerrainBase {
 
         public TerrainBOPVolcanicIsland() {
 
@@ -83,7 +66,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPVolcanicIsland extends SurfaceBase {
+    public static class SurfaceBOPVolcanicIsland extends SurfaceBase {
 
         private IBlockState blockMixTop;
         private IBlockState blockMixFiller;
@@ -112,7 +95,7 @@ public class RealisticBiomeBOPVolcanicIsland extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {

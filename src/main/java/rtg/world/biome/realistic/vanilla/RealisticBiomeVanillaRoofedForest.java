@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt.DirtType;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -15,15 +13,8 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
-import rtg.api.world.deco.DecoBoulder;
-import rtg.api.world.deco.DecoCobwebs;
-import rtg.api.world.deco.DecoDeadBush;
-import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoMushrooms;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
+import rtg.api.world.biome.RealisticBiomeBase;
+import rtg.api.world.deco.*;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGCeibaPentandra;
@@ -32,9 +23,8 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTGRhizophoraMucronata;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 import rtg.api.world.terrain.heighteffect.GroundEffect;
-import rtg.api.world.biome.RealisticBiomeBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
@@ -92,7 +82,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         mangroveTree.setTreeConditionChance(1);
         mangroveTree.setStrengthFactorForLoops(12f);
         mangroveTree.setMaxY(110);
-        mangroveTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(mangroveTree);
 
         TreeRTG pentandraTree = new TreeRTGCeibaPentandra(13f, 3, 0.32f, 0.1f);
@@ -111,7 +100,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         ceibaPentandraTree.setTreeConditionChance(1);
         ceibaPentandraTree.setStrengthFactorForLoops(12f);
         ceibaPentandraTree.setMaxY(110);
-        ceibaPentandraTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(ceibaPentandraTree);
 
         TreeRTG roseaTree = new TreeRTGCeibaRosea(16f, 5, 0.32f, 0.1f);
@@ -130,16 +118,13 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         ceibaRoseaTree.setTreeConditionChance(1);
         ceibaRoseaTree.setStrengthFactorForLoops(12f);
         ceibaRoseaTree.setMaxY(110);
-        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
         this.addDeco(ceibaRoseaTree);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
         decoFallenTree.setLogConditionChance(16);
-        decoFallenTree.setLogConditionNoise(0f);
         decoFallenTree.setLogBlock(BlockUtil.getStateLog(EnumType.DARK_OAK));
         decoFallenTree.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.DARK_OAK));
         decoFallenTree.setMinSize(4);
@@ -176,10 +161,8 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         decoCobwebs.setMinAdjacents(2);
         this.addDeco(decoCobwebs, this.getConfig().ALLOW_COBWEBS.get());
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
-        decoBaseBiomeDecorations.setMaxY(100);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setNotEqualsZeroChance(2);
+        //decoBaseBiomeDecorations.setMaxY(100);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.setMaxY(100);
@@ -194,11 +177,11 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 3;
+    public double waterLakeMult() {
+        return 0.5;
     }
 
-    public class TerrainVanillaRoofedForest extends TerrainBase {
+    public static class TerrainVanillaRoofedForest extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
 
@@ -213,7 +196,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         }
     }
 
-    public class SurfaceVanillaRoofedForest extends SurfaceBase {
+    public static class SurfaceVanillaRoofedForest extends SurfaceBase {
 
         private float min;
 

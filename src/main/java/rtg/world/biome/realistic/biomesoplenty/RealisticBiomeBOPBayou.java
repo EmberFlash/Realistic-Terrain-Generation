@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import biomesoplenty.api.enums.BOPTrees;
@@ -23,18 +21,14 @@ import rtg.api.util.noise.ISimplexData2D;
 import rtg.api.util.noise.SimplexData2D;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoGrass;
-import rtg.api.world.deco.DecoGrassDoubleTallgrass;
-import rtg.api.world.deco.DecoJungleLilypadVines;
 import rtg.api.world.deco.DecoMushrooms;
-import rtg.api.world.deco.DecoPond;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
@@ -136,12 +130,6 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     @Override
     public void initDecos() {
 
-        DecoPond decoPond = new DecoPond();
-        decoPond.setChunksPerPond(1);
-        decoPond.setMaxY(67);
-        decoPond.setLoops(8);
-        this.addDeco(decoPond);
-
 //        TreeRTG myrtilloidesTree = new TreeRTGSalixMyrtilloides();
 //        myrtilloidesTree.setLogBlock(logBlock);
 //        myrtilloidesTree.setLeavesBlock(leavesBlock);
@@ -176,12 +164,9 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
 //        ceibaRoseaTree.setTreeCondition(DecoTree.TreeCondition.RANDOM_CHANCE);
 //        ceibaRoseaTree.setTreeConditionChance(4);
 //        ceibaRoseaTree.setMaxY(90);
-//        ceibaRoseaTree.setScatter(new DecoTree.Scatter(16, 0));
 //        this.addDeco(ceibaRoseaTree);
 
-        DecoBaseBiomeDecorations decoBaseBiomeDecorations = new DecoBaseBiomeDecorations();
-        decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
-        this.addDeco(decoBaseBiomeDecorations);
+        //decoBaseBiomeDecorations.setNotEqualsZeroChance(4);
 
         // Shrubs to fill in the blanks.
         DecoShrub decoShrubOak = new DecoShrub();
@@ -194,23 +179,12 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         decoFallenTree.getDistribution().setNoiseDivisor(80f);
         decoFallenTree.getDistribution().setNoiseFactor(60f);
         decoFallenTree.getDistribution().setNoiseAddend(-15f);
-        decoFallenTree.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree.setLogConditionNoise(-0.2f);
         decoFallenTree.setLogConditionChance(4);
         decoFallenTree.setLogBlock(logBlock);
         decoFallenTree.setLeavesBlock(leavesBlock);
         decoFallenTree.setMinSize(3);
         decoFallenTree.setMaxSize(6);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
-
-        DecoJungleLilypadVines decoJungleLilypadVines = new DecoJungleLilypadVines();
-        this.addDeco(decoJungleLilypadVines);
-
-        DecoGrassDoubleTallgrass decoGrassDoubleTallgrass = new DecoGrassDoubleTallgrass();
-        decoGrassDoubleTallgrass.setMaxY(90);
-        decoGrassDoubleTallgrass.setStrengthFactor(4f);
-        decoGrassDoubleTallgrass.setDoubleGrassChance(8);
-        this.addDeco(decoGrassDoubleTallgrass);
 
         DecoGrass decoGrass = new DecoGrass();
         decoGrass.setMaxY(90);
@@ -225,11 +199,11 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
     }
 
     @Override
-    public int waterSurfaceLakeChance() {
-        return 0;
+    public double waterLakeMult() {
+        return 0.0;
     }
 
-    public class TerrainBOPBayou extends TerrainBase {
+    public static class TerrainBOPBayou extends TerrainBase {
 
         public TerrainBOPBayou() {
 
@@ -242,7 +216,7 @@ public class RealisticBiomeBOPBayou extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPBayou extends SurfaceBase {
+    public static class SurfaceBOPBayou extends SurfaceBase {
 
         private float min;
 

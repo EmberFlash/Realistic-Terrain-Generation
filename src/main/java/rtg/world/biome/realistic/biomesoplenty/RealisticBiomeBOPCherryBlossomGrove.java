@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.biomesoplenty;
 
-import java.util.Random;
-
 import biomesoplenty.api.biome.BOPBiomes;
 import biomesoplenty.api.block.BOPBlocks;
 import net.minecraft.block.Block;
@@ -15,14 +13,13 @@ import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBase;
-import rtg.api.world.deco.DecoBaseBiomeDecorations;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.helper.DecoHelperRandomSplit;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
 
-import static rtg.api.world.deco.DecoFallenTree.LogCondition.NOISE_GREATER_AND_RANDOM_CHANCE;
+import java.util.Random;
 
 
 public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
@@ -50,8 +47,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
     @Override
     public SurfaceBase initSurface() {
 
-        return new SurfaceBOPCherryBlossomGrove(getConfig(),
-            biome.topBlock, //Block top
+        return new SurfaceBOPCherryBlossomGrove(getConfig(), biome.topBlock, //Block top
             biome.fillerBlock, //Block filler,
             biome.topBlock, //IBlockState mixTop,
             biome.fillerBlock, //IBlockState mixFill,
@@ -75,8 +71,6 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.getDistribution().setNoiseDivisor(100f);
         decoFallenTree1.getDistribution().setNoiseFactor(6f);
         decoFallenTree1.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree1.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree1.setLogConditionNoise(0f);
         decoFallenTree1.setLogConditionChance(16);
         decoFallenTree1.setMaxY(100);
         decoFallenTree1.setLogBlock(BOPBlocks.log_1.getStateFromMeta(1));
@@ -88,8 +82,6 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoFallenTree1.getDistribution().setNoiseDivisor(100f);
         decoFallenTree1.getDistribution().setNoiseFactor(6f);
         decoFallenTree1.getDistribution().setNoiseAddend(0.8f);
-        decoFallenTree2.setLogCondition(NOISE_GREATER_AND_RANDOM_CHANCE);
-        decoFallenTree2.setLogConditionNoise(0f);
         decoFallenTree2.setLogConditionChance(16);
         decoFallenTree2.setMaxY(100);
         decoFallenTree2.setLogBlock(Blocks.LOG.getDefaultState());
@@ -101,11 +93,9 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         decoHelperRandomSplit.decos = new DecoBase[]{decoFallenTree2, decoFallenTree1};
         decoHelperRandomSplit.chances = new int[]{15, 1};
         this.addDeco(decoHelperRandomSplit, this.getConfig().ALLOW_LOGS.get());
-
-        this.addDeco(new DecoBaseBiomeDecorations());
     }
 
-    public class TerrainBOPCherryBlossomGrove extends TerrainBase {
+    public static class TerrainBOPCherryBlossomGrove extends TerrainBase {
 
         private float minHeight;
         private float maxHeight;
@@ -125,7 +115,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
         }
     }
 
-    public class SurfaceBOPCherryBlossomGrove extends SurfaceBase {
+    public static class SurfaceBOPCherryBlossomGrove extends SurfaceBase {
 
 
         private IBlockState blockMixTop;
@@ -155,7 +145,7 @@ public class RealisticBiomeBOPCherryBlossomGrove extends RealisticBiomeBOPBase {
             Random rand = rtgWorld.rand();
             SimplexNoise simplex = rtgWorld.simplexInstance(0);
             float c = Terrain.calcCliff(x, z, noise);
-            boolean cliff = c > 1.4f ? true : false;
+            boolean cliff = c > 1.4f;
             boolean mix = false;
 
             for (int k = 255; k > -1; k--) {
