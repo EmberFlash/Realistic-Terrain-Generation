@@ -39,6 +39,7 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.5f);
         this.getConfig().addProperty(this.getConfig().ALLOW_LOGS).set(true);
         this.getConfig().addProperty(this.getConfig().FALLEN_LOG_DENSITY_MULTIPLIER);
         this.getConfig().addProperty(this.getConfig().ALLOW_COBWEBS).set(true);
@@ -176,11 +177,6 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
         this.addDeco(decoDeadBush);
     }
 
-    @Override
-    public double waterLakeMult() {
-        return 0.5;
-    }
-
     public static class TerrainVanillaRoofedForest extends TerrainBase {
 
         private GroundEffect groundEffect = new GroundEffect(4f);
@@ -257,15 +253,15 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
                         if (cliff == 1) {
                             if (rand.nextInt(3) == 0) {
 
-                                primer.setBlockState(x, k, z, hcCobble(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcCobble());
                             }
                             else {
 
-                                primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                                primer.setBlockState(x, k, z, hcStone());
                             }
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
                         else if (k < 63) {
                             if (k < 62) {
@@ -285,10 +281,10 @@ public class RealisticBiomeVanillaRoofedForest extends RealisticBiomeBase {
                     }
                     else if (depth < 6) {
                         if (cliff == 1) {
-                            primer.setBlockState(x, k, z, hcStone(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, hcStone());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowStoneBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowStoneBlock());
                         }
                         else {
                             primer.setBlockState(x, k, z, fillerBlock);

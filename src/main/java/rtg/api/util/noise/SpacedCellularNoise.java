@@ -50,14 +50,13 @@ public class SpacedCellularNoise implements CellularNoise {
     private static final int pointsPerTorus = 25;
     private static final double minDistanceSq = 0.005d;
 
-    private final Map<Integer, Point2D.Double[]> cache = new LimitedArrayCacheMap<>(40);
+    private final Map<Point, Point2D.Double[]> cache = new LimitedArrayCacheMap<>(256);
     private final Point2D.Double[] allPoints;
     private final long xSeed;
     private final long ySeed;
 
     public SpacedCellularNoise(long xSeed) {
         this.xSeed = xSeed;
-//TODO: [1.12] This can probably use D. Knuth's LCG to generate the ySeed. (ySeed = ySeed * 6364136223846793005L + 1442695040888963407L)
         this.ySeed = new Random(xSeed).nextLong();
         this.allPoints = new Point2D.Double[totalPoints];
         this.setPoints();
@@ -104,7 +103,6 @@ public class SpacedCellularNoise implements CellularNoise {
         // evaluate the points for that square;
         result.evaluate(this.areaPoints(square), x, y);
 
-// TODO: [1.12] At which point would any of the following if statements be false?
         // now horizontally adjacent squares as appropriate
         double distance = y - yInt;
         if (distance != result.getNextDistance()) {
@@ -159,7 +157,7 @@ public class SpacedCellularNoise implements CellularNoise {
      */
     private Point2D.Double[] areaPoints(Point area) {
         Point2D.Double[] ret;
-        return ((ret = this.cache.get(area.hashCode())) != null) ? ret : this.generatedAreaPoints(area);
+        return ((ret = this.cache.get(area)) != null) ? ret : this.generatedAreaPoints(area);
     }
 
     private Point2D.Double[] generatedAreaPoints(Point area) {
@@ -181,7 +179,7 @@ public class SpacedCellularNoise implements CellularNoise {
             result[i] = new Point2D.Double(this.allPoints[index].getX() + area.getX(), this.allPoints[index].getY() + area.getY());
             used[i] = true;
         }
-        this.cache.put(area.hashCode(), result);
+        this.cache.put(area, result);
         return result;
     }
 

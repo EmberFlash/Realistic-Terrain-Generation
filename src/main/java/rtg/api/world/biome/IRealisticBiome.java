@@ -41,13 +41,10 @@ public interface IRealisticBiome {
 
     IRealisticBiome getBeachBiome();
 
-    // TODO: [1.12] This should not return a BiomeConfig object, but an object holder class that holds the raw config values that can be resynced on-demand.
     BiomeConfig getConfig();
 
-    // TODO: [1.12] TerrainBase should be made into a @FunctionalInterface. All current static methods in TerrainBase can become defaults.
     TerrainBase terrain();
 
-    // TODO: [1.12] TerrainBase should be made into a @FunctionalInterface. All current static methods in TerrainBase can become defaults.
     SurfaceBase surface();
 
     void rReplace(final ChunkPrimer primer, final BlockPos blockPos, final int x, final int y, final int depth, final RTGWorld rtgWorld, final float[] noise, final float river, final Biome[] base);
@@ -56,13 +53,9 @@ public interface IRealisticBiome {
 
     float rNoise(RTGWorld rtgWorld, int x, int y, float border, float river);
 
-    default double waterLakeMult() {
-        return this.getConfig().SURFACE_WATER_LAKE_MULT.get();
-    }
+    double waterLakeMult();
 
-    default double lavaLakeMult() {
-        return this.getConfig().SURFACE_LAVA_LAKE_MULT.get();
-    }
+    double lavaLakeMult();
 
     float lakePressure(RTGWorld rtgWorld, int x, int y, float border, float lakeInterval, float largeBendSize, float mediumBendSize, float smallBendSize);
 
@@ -91,6 +84,9 @@ public interface IRealisticBiome {
             decos.add(deco);
         }
     }
+
+    // Use this method to override a base biome's decorations.
+    default void overrideDecorations() {}
 
     /**
      * Convenience method for addDeco() where 'allowed' is assumed to be true.
@@ -169,11 +165,18 @@ public interface IRealisticBiome {
 
     default void rDecorate(final RTGWorld rtgWorld, final Random rand, final ChunkPos chunkPos, final float river, final boolean hasVillage) {
         this.getDecos().stream()
-            .filter(deco -> deco.preGenerate(river))
-            .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasVillage));
-        // TODO: [1.12] This may need to be adjusted to run before RTG decorations.
-        this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+                .filter(deco -> deco.preGenerate(river))
+                .forEach(deco -> deco.generate(this, rtgWorld, rand, chunkPos, river, hasVillage));
+
+        if (overridesHardcoded()) {
+            this.baseBiome().decorator.decorate(rtgWorld.world(), rand, baseBiome(), new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+        } else {
+            this.baseBiome().decorate(rtgWorld.world(), rand, new BlockPos(chunkPos.x * 16, 0, chunkPos.z * 16));
+        }
     }
+
+    // Some biomes have hard-coded decorations. If true, RTG will call the biome decorator's decorate() method instead of the biome's decorate() method.
+    default boolean overridesHardcoded() { return false; }
 
     default double getSnowLayerMultiplier() { return 1.0d; }
 

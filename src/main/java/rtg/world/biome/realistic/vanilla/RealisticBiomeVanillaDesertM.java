@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
@@ -12,11 +10,13 @@ import rtg.api.config.BiomeConfig;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.collection.DecoCollectionDesert;
 import rtg.api.world.deco.collection.DecoCollectionDesertRiver;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
+
+import java.util.Random;
 
 
 public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
@@ -31,7 +31,9 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
 
     @Override
     public void initConfig() {
+        this.getConfig().SURFACE_WATER_LAKE_MULT.set(0.0f);
         this.getConfig().ALLOW_SCENIC_LAKES.set(false);
+        this.getConfig().ALLOW_RIVERS.set(false);
         this.getConfig().addProperty(this.getConfig().ALLOW_CACTUS).set(true);
     }
 
@@ -61,8 +63,8 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
     }
 
     @Override
-    public double waterLakeMult() {
-        return 0.0;
+    public void overrideDecorations() {
+        baseBiome().decorator.cactiPerChunk = -999;
     }
 
     public static class TerrainVanillaDesertM extends TerrainBase {
@@ -142,7 +144,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
                             primer.setBlockState(x, k, z, rand.nextInt(3) == 0 ? Blocks.SANDSTONE.getDefaultState() : Blocks.SAND.getDefaultState());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowDesertBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowDesertBlock());
                         }
                         else if (k < 63) {
                             if (k < 62) {
@@ -161,7 +163,7 @@ public class RealisticBiomeVanillaDesertM extends RealisticBiomeBase {
                             primer.setBlockState(x, k, z, Blocks.SAND.getDefaultState());
                         }
                         else if (cliff == 2) {
-                            primer.setBlockState(x, k, z, getShadowDesertBlock(rtgWorld, i, j, x, z, k));
+                            primer.setBlockState(x, k, z, getShadowDesertBlock());
                         }
                         else {
                             primer.setBlockState(x, k, z, fillerBlock);
