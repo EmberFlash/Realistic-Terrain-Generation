@@ -182,11 +182,9 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
         decoShrubSpruce.setLogBlock(BlockUtil.getStateLog(EnumType.SPRUCE));
         decoShrubSpruce.setLeavesBlock(BlockUtil.getStateLeaf(EnumType.SPRUCE));
         decoShrubSpruce.setMaxY(100);
-        decoShrubSpruce.setStrengthFactor(3f);
+        decoShrubSpruce.setLoopMultiplier(3f);
         decoShrubSpruce.setChance(6);
         this.addDeco(decoShrubSpruce);
-
-//		decoBaseBiomeDecorations.setEqualsZeroChance(3);
 
         DecoBoulder decoBoulder = new DecoBoulder();
         decoBoulder.setBoulderBlock(Blocks.MOSSY_COBBLESTONE.getDefaultState());
@@ -197,19 +195,12 @@ public class DecoCollectionTaiga extends DecoCollectionBase {
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(32f);
         this.addDeco(decoPumpkin);
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
-        decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
         decoMushrooms.setRandomFloat(24f);
         this.addDeco(decoMushrooms);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(grassStrengthFactor);
-        this.addDeco(decoGrass);
     }
 }

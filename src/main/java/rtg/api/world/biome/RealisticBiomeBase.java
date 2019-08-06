@@ -29,7 +29,6 @@ import java.util.Collection;
 public abstract class RealisticBiomeBase implements IRealisticBiome {
 
     private static final String BIOME_CONFIG_SUBDIR = "biomes";
-    protected static final double GENERAL_SNOWLAYER_REDUCTION = 0.75d;
 
     private final Biome baseBiome;
     private final ResourceLocation baseBiomeResLoc;
@@ -112,13 +111,28 @@ public abstract class RealisticBiomeBase implements IRealisticBiome {
     }
 
     @Override
+    public Biome preferredBeach() {
+        return this.beachType.getBiome();
+    }
+
+    @Override
     public IRealisticBiome getRiverBiome() {
         return this.riverType.getRTGBiome();
     }
 
     @Override
     public IRealisticBiome getBeachBiome() {
-        return this.beachType.getRTGBiome();
+        IRealisticBiome rbb = RTGAPI.getRTGBiome(Biome.getIdForBiome(this.preferredBeach()));
+        int configBiomeId = this.getConfig().BEACH_BIOME.get();
+        if (configBiomeId > -1) {
+            rbb = RTGAPI.getRTGBiome(configBiomeId);
+        }
+        return rbb;
+    }
+
+    @Override
+    public void overrideDecorations() {
+        //baseBiome().decorator.grassPerChunk = -999;
     }
 
     @Override

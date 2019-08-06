@@ -89,7 +89,7 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(100);
-        decoShrub.setStrengthFactor(3f);
+        decoShrub.setLoopMultiplier(3f);
         this.addDeco(decoShrub);
 
         DecoFallenTree decoFallenTree = new DecoFallenTree();
@@ -105,14 +105,8 @@ public class RealisticBiomeVanillaSwamplandM extends RealisticBiomeBase {
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(50f);
         this.addDeco(decoPumpkin);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(12f);
-        this.addDeco(decoGrass);
     }
 
     public static class TerrainVanillaSwamplandM extends TerrainBase {

@@ -76,7 +76,7 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
         acaciaShrub.setLogBlock(Blocks.LOG2.getDefaultState());
         acaciaShrub.setLeavesBlock(Blocks.LEAVES2.getDefaultState());
         acaciaShrub.setMaxY(160);
-        acaciaShrub.setStrengthFactor(3f);
+        acaciaShrub.setLoopMultiplier(3f);
         acaciaShrub.setChance(9);
         this.addDeco(acaciaShrub);
 
@@ -105,11 +105,6 @@ public class RealisticBiomeVanillaSavannaPlateau extends RealisticBiomeBase {
         decoDoubleGrass.setMaxY(128);
         decoDoubleGrass.setStrengthFactor(3f);
         this.addDeco(decoDoubleGrass);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(10f);
-        this.addDeco(decoGrass);
     }
 
     @Override

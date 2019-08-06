@@ -71,11 +71,15 @@ public final class RTGConfig
 
         rtgWorldTypeByDefault   (Type.BOOLEAN, Category.client,
                                 "Automatically select the RTG world type when creating a new world",
-                                false),
+                                true),
 
         enableDebugging         (Type.BOOLEAN, Category.debug,
                                 "Enable extra debug logging.\n" +
                                 "!This setting has a severe performance penalty. Only enable if you know what you are doing!",
+                                false),
+
+        additionalBiomeInfo     (Type.BOOLEAN, Category.debug,
+                                "Enable the logging of additional biome information on startup.",
                                 false),
 
         patchBiome              (Type.STRING,  Category.debug,
@@ -213,6 +217,7 @@ public final class RTGConfig
                 case worldTypeNotification  :
                 case rtgWorldTypeByDefault  :
                 case enableDebugging        :
+                case additionalBiomeInfo    :
                 case oreGenEventCancellation:
                 case lushRiverbanksInDesert :
                 case rtgTreesFromSaplings   :
@@ -278,6 +283,7 @@ public final class RTGConfig
     public static boolean     rtgWorldTypeByDefault()  { return (Boolean)Setting.rtgWorldTypeByDefault.getCurVal(); }
 
     public static boolean     enableDebugging()        { return (Boolean)Setting.enableDebugging.getCurVal(); }
+    public static boolean     additionalBiomeInfo()    { return (Boolean)Setting.additionalBiomeInfo.getCurVal(); }
     public static Biome       patchBiome()             {
         final String cfgBiome = (String)Setting.patchBiome.getCurVal();
         Biome biome;

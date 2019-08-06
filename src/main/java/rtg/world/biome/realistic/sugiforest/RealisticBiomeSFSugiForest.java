@@ -12,7 +12,6 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -74,13 +73,13 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         decoShrubSugi.setLogBlock(sugiLogBlock);
         decoShrubSugi.setLeavesBlock(sugiLeavesBlock);
         decoShrubSugi.setMaxY(90);
-        decoShrubSugi.setStrengthFactor(4f);
+        decoShrubSugi.setLoopMultiplier(4f);
         decoShrubSugi.setChance(8);
         this.addDeco(decoShrubSugi);
 
         DecoShrub decoShrubOak = new DecoShrub();
         decoShrubOak.setMaxY(90);
-        decoShrubOak.setStrengthFactor(4f);
+        decoShrubOak.setLoopMultiplier(4f);
         decoShrubOak.setChance(4);
         this.addDeco(decoShrubOak);
 
@@ -92,13 +91,6 @@ public class RealisticBiomeSFSugiForest extends RealisticBiomeSFBase {
         this.addDeco(decoBoulder);
 
         //decoBaseBiomeDecorations.setNotEqualsZeroChance(8);
-
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMinY(63);
-        decoGrass.setMaxY(100);
-        decoGrass.setLoops(1);
-        this.addDeco(decoGrass);
     }
 
     public static class TerrainSFSugiForest extends TerrainBase {

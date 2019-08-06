@@ -20,9 +20,6 @@ import java.util.Random;
  */
 public abstract class DecoBase {
 
-    // TODO [1.12] Temporary; To be removed.
-    static final int strength = 1;
-
     @Deprecated
     private ArrayList<DecoType> decoTypes;
     private boolean checkRiver;
@@ -135,6 +132,7 @@ public abstract class DecoBase {
     @Deprecated
     public enum DecoType {
         BASE_BIOME_DECORATION,
+        BIG_SHROOM,
         BOULDER,
         COBWEB,
         CACTUS,
@@ -160,7 +158,8 @@ public abstract class DecoBase {
         TEST,
         TREE,
         VINE,
-        WHEAT
+        WHEAT,
+        WORLDGEN
     }
 
     static BlockPos getOffsetPos(final ChunkPos pos) {

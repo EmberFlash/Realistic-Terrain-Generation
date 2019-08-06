@@ -1,7 +1,5 @@
 package rtg.world.biome.realistic.vanilla;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.state.IBlockState;
@@ -14,9 +12,9 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
+import rtg.api.world.biome.RealisticBiomeBase;
 import rtg.api.world.deco.DecoFallenTree;
 import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.deco.DecoTree;
 import rtg.api.world.deco.collection.DecoCollectionSmallPineTreesForest;
@@ -25,18 +23,11 @@ import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGPinusPonderosa;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
-import rtg.api.world.biome.RealisticBiomeBase;
 
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ALLIUM;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.BLUE_ORCHID;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.DANDELION;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.HOUSTONIA;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.ORANGE_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.OXEYE_DAISY;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.PINK_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.POPPY;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.RED_TULIP;
-import static net.minecraft.block.BlockFlower.EnumFlowerType.WHITE_TULIP;
+import java.util.Random;
+
+import static net.minecraft.block.BlockDoublePlant.EnumPlantType.*;
+import static net.minecraft.block.BlockFlower.EnumFlowerType.*;
 import static rtg.api.world.deco.DecoFallenTree.LogCondition.RANDOM_CHANCE;
 
 
@@ -75,7 +66,7 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
         // First, let's get a few shrubs in to break things up a bit.
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(4f);
+        decoShrub.setLoopMultiplier(4f);
         decoShrub.setChance(3);
         this.addDeco(decoShrub);
 
@@ -86,13 +77,11 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
             .setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
         this.addDeco(decoFlowers1);
 
-// TODO: [1.12] Add double-plant flowers back into DecoFlowersRTG
-//        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
-//        decoFlowers2.addFlowers(new int[]{10, 11, 14, 15}); //Only 2-block-tall flowers.
-//        decoFlowers2.setStrengthFactor(2f); // Not as many of these.
-//        decoFlowers2.setChance(3);
-//        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
-//        this.addDeco(decoFlowers2);
+        DecoFlowersRTG decoFlowers2 = new DecoFlowersRTG();
+        decoFlowers2.addPlants(SUNFLOWER, SYRINGA, ROSE, PAEONIA); //Only 2-block-tall flowers.
+        decoFlowers2.setChance(8);
+        decoFlowers2.setHeightType(DecoFlowersRTG.HeightType.GET_HEIGHT_VALUE); // We're only bothered about surface flowers here.
+        this.addDeco(decoFlowers2);
 
         // Trees first.
 
@@ -163,12 +152,16 @@ public class RealisticBiomeVanillaFlowerForest extends RealisticBiomeBase {
         decoFallenSpruce.setMaxSize(6);
         DecoHelper5050 decoFallenTree = new DecoHelper5050(decoFallenOak, decoFallenSpruce);
         this.addDeco(decoFallenTree, this.getConfig().ALLOW_LOGS.get());
+    }
 
-        // Grass filler.
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(24f);
-        this.addDeco(decoGrass);
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.flowersPerChunk = -999;
+    }
+
+    @Override
+    public boolean overridesHardcoded() {
+        return true;
     }
 
     public static class TerrainVanillaFlowerForest extends TerrainBase {

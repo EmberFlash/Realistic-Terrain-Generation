@@ -14,7 +14,6 @@ import rtg.api.util.noise.SimplexNoise;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.deco.DecoBoulder;
 import rtg.api.world.deco.DecoFallenTree;
-import rtg.api.world.deco.DecoGrass;
 import rtg.api.world.deco.DecoShrub;
 import rtg.api.world.surface.SurfaceBase;
 import rtg.api.world.terrain.TerrainBase;
@@ -86,14 +85,9 @@ public class RealisticBiomeBOPMountainPeaks extends RealisticBiomeBOPBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(110);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.setLoopMultiplier(2f);
         decoShrub.setChance(10);
         this.addDeco(decoShrub);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(3f);
-        this.addDeco(decoGrass);
     }
 
     public static class TerrainBOPMountainPeaks extends TerrainBase {

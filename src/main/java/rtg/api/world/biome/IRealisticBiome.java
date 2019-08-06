@@ -41,6 +41,8 @@ public interface IRealisticBiome {
 
     IRealisticBiome getBeachBiome();
 
+    Biome preferredBeach();
+
     BiomeConfig getConfig();
 
     TerrainBase terrain();
@@ -175,10 +177,11 @@ public interface IRealisticBiome {
         }
     }
 
-    // Some biomes have hard-coded decorations. If true, RTG will call the biome decorator's decorate() method instead of the biome's decorate() method.
+    /**
+     * Some biomes have hard-coded decorations.
+     * If true, RTG will call the biome decorator's decorate() method instead of the biome's decorate() method.
+     */
     default boolean overridesHardcoded() { return false; }
-
-    default double getSnowLayerMultiplier() { return 1.0d; }
 
     TerrainBase initTerrain();
 

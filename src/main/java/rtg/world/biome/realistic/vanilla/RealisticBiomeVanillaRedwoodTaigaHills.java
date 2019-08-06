@@ -75,7 +75,7 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeBase {
 
         DecoShrub decoShrub = new DecoShrub();
         decoShrub.setMaxY(100);
-        decoShrub.setStrengthFactor(2f);
+        decoShrub.setLoopMultiplier(2f);
         decoShrub.setChance(10);
         this.addDeco(decoShrub);
 
@@ -83,20 +83,13 @@ public class RealisticBiomeVanillaRedwoodTaigaHills extends RealisticBiomeBase {
 
         DecoMushrooms decoMushrooms = new DecoMushrooms();
         decoMushrooms.setMaxY(90);
-        decoMushrooms.setRandomType(DecoMushrooms.RandomType.X_DIVIDED_BY_STRENGTH);
         decoMushrooms.setRandomFloat(3f);
         this.addDeco(decoMushrooms);
 
         DecoPumpkin decoPumpkin = new DecoPumpkin();
         decoPumpkin.setMaxY(90);
-        decoPumpkin.setRandomType(DecoPumpkin.RandomType.X_DIVIDED_BY_STRENGTH);
         decoPumpkin.setRandomFloat(20f);
         this.addDeco(decoPumpkin);
-
-        DecoGrass decoGrass = new DecoGrass();
-        decoGrass.setMaxY(128);
-        decoGrass.setStrengthFactor(10f);
-        this.addDeco(decoGrass);
     }
 
     public static class TerrainVanillaRedwoodTaigaHills extends TerrainBase {

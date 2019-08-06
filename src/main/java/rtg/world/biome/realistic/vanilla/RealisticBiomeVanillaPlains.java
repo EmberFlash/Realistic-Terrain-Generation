@@ -12,10 +12,7 @@ import rtg.api.util.BlockUtil;
 import rtg.api.util.WorldUtil.Terrain;
 import rtg.api.world.RTGWorld;
 import rtg.api.world.biome.RealisticBiomeBase;
-import rtg.api.world.deco.DecoCrop;
-import rtg.api.world.deco.DecoFlowersRTG;
-import rtg.api.world.deco.DecoShrub;
-import rtg.api.world.deco.DecoTree;
+import rtg.api.world.deco.*;
 import rtg.api.world.deco.helper.DecoHelperThisOrThat;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTG;
 import rtg.api.world.gen.feature.tree.rtg.TreeRTGQuercusRobur;
@@ -64,8 +61,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
 
         //Sparse wheat
         DecoCrop decoCropWheat = new DecoCrop();
-        decoCropWheat.setSize(8);
-        decoCropWheat.setDensity(5);
+        decoCropWheat.setSize(4);
+        decoCropWheat.setDensity(4);
         decoCropWheat.setChance(this.getConfig().WHEAT_CHANCE.get());
         decoCropWheat.setType(3);
         decoCropWheat.setWater(false);
@@ -85,16 +82,8 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         // The occasional flower.
         DecoFlowersRTG decoFlowersRTG = new DecoFlowersRTG()
             .addFlowers(POPPY, BLUE_ORCHID, ALLIUM, HOUSTONIA, RED_TULIP, ORANGE_TULIP, WHITE_TULIP, PINK_TULIP, OXEYE_DAISY, DANDELION)
-            .setMaxY(128)
-            .setStrengthFactor(2f);
+            .setMaxY(128);
         this.addDeco(decoFlowersRTG);
-
-        // Lots of grass, but not as much as vanilla.
-//        DecoGrass decoGrass = new DecoGrass();
-//        decoGrass.setMinY(60);
-//        decoGrass.setMaxY(128);
-//        decoGrass.setLoops(6);
-//        this.addDeco(decoGrass);
 
         // Very rare fat oak/birch trees.
 
@@ -131,9 +120,18 @@ public class RealisticBiomeVanillaPlains extends RealisticBiomeBase {
         birchTrees.setTreeConditionChance(48);
 
         this.addDeco(new DecoHelperThisOrThat(4, DecoHelperThisOrThat.ChanceType.NOT_EQUALS_ZERO, oakTrees, birchTrees));
+    }
 
-        // Vanilla trees look awful in this biome, so let's make sure they don't generate by modifying the base biome decorator
+    @Override
+    public void overrideDecorations() {
+        baseBiome().decorator.grassPerChunk = 5;
+        baseBiome().decorator.flowersPerChunk = -999;
         baseBiome().decorator.treesPerChunk = -999;
+    }
+
+    @Override
+    public boolean overridesHardcoded() {
+        return true;
     }
 
     public static class TerrainVanillaPlains extends TerrainBase {
